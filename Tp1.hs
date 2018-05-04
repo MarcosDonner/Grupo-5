@@ -125,3 +125,22 @@ transacción5 :: Transacción
 transacción5 unUsuario | nombre unUsuario == "Pepe" = extracción 7 unUsuario
                        | nombre unUsuario == "Lucho" = deposito 7 unUsuario
                        | otherwise = quedaIgual unUsuario
+
+-- ******************************************* Parte 2 ***********************************************************
+-- agregados las primeras 3 funciones del tp2 
+pruebaEventosTP2 = hspec $ do
+  describe " Usuario luego de la Transaccion " $ do
+    it " impactar Transaccion 1 a pepe. Debe quedar igual" $ impactar transacción1 pepe `shouldBe` pepe
+    it " impactar Transaccion 5 a lucho. Obteniendo 9 monedas en su billetera" $ impactar transacción5 lucho `shouldBe` nuevaBilletera 9 lucho
+    it " impactar transacción5 y luego transacción2 a pepe. Obteniendo saldo 8 en su billetera" $ impactar (transacción2.transacción5) pepe `shouldBe` nuevaBilletera 8 pepe
+
+nuevaBilletera :: Float -> Usuario -> Usuario
+nuevaBilletera otraBilletera unUsuario = unUsuario{billetera = otraBilletera}
+
+impactar :: Transacción -> Usuario -> Usuario
+impactar unaTransaccion unUsuario = unaTransaccion unUsuario
+
+type Bloque = [Transacción]
+
+bloque1 :: Bloque
+bloque1 = [transacción1,transacción2,transacción2,transacción2,transacción3,transacción4,transacción5,transacción3]
