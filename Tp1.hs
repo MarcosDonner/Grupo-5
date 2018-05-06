@@ -136,8 +136,7 @@ pruebaEventosTP2 = hspec $ do
     it " impactar transacción5 y luego transacción2 a pepe. Obteniendo saldo 8 en su billetera" $ impactar (transacción2.transacción5) pepe `shouldBe` nuevaBilletera 8 pepe
     describe " Usuario luego de Aplicar bloques de Transacciónes" $ do
     it " impactar el bloque1 en pepe , y su saldo debe ser de 18 monedas " $ comoQuedaSaldo bloque1 pepe  `shouldBe` nuevaBilletera 18 pepe
-    it " determinar saldo menor a N creditos, para pepe y lucho , mostrando el que quede con saldo mayor a 10: pepe"
-    $ usuarioConSaldoSegunNCreditos 10 bloque1 [pepe,lucho] `shouldBe` [pepe]
+    it " determinar saldo menor a N creditos, para pepe y lucho , mostrando el que quede con saldo mayor a 10: pepe" $ usuarioConSaldoSegunNCreditos 10 bloque1 [pepe,lucho] `shouldBe` [pepe]
 
 nuevaBilletera :: Float -> Usuario -> Usuario
 nuevaBilletera otraBilletera unUsuario = unUsuario{billetera = otraBilletera}
