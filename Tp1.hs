@@ -155,4 +155,8 @@ comoQuedaSaldo unBloque unUsuario  = foldr impactar unUsuario unBloque
 usuarioConSaldoSegunNCreditos :: Float -> Bloque -> [Usuario] ->  [Usuario]
 usuarioConSaldoSegunNCreditos unCredito unBloque unosUsuarios = filter ((>= unCredito).billetera.(comoQuedaSaldo unBloque)) unosUsuarios
 
+bloque2 ::  [Bloque]
 bloque2 = [transacción2,transacción2,transacción2,transacción2,transacción2]
+
+blockChain :: [Bloque]
+blockChain = [bloque2,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1]
