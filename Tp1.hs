@@ -79,7 +79,7 @@ quedaIgual unUsuario = unUsuario
 data Usuario = Usuario {
         nombre :: String,
         billetera :: Float
-        }deriving (Show, Eq)
+        } deriving (Show, Eq)
 
 --Usuarios
 
@@ -123,8 +123,17 @@ transacción4 unUsuario = ahorranteErrante unUsuario
 
 transacción5 :: Transacción
 transacción5 unUsuario | nombre unUsuario == "Pepe" = extracción 7 unUsuario
-                       | nombre unUsuario == "Lucho" = deposito 7 unUsuario
+                       | nombre unUsuario == "Lucho" = deposito 7 lucho
                        | otherwise = quedaIgual unUsuario
+
+
+compararNombre algunUsuario otroUsuario = nombre algunUsuario == nombre otroUsuario
+
+--transacción unUsuario unEvento usuarioAVerificar | compararNombre unUsuario usuarioAVerificar = unEvento unUsuario
+  --                                               |  = unEvento usuarioAVerificar
+--                                                 | otherwise = unUsuario
+
+
 
 -- ******************************************* Parte 2 ***********************************************************
 -- agregados las primeras 3 funciones del tp2
