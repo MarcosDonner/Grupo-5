@@ -146,6 +146,8 @@ pruebaEventosTP2 = hspec $ do
     describe " Usuario luego de Aplicar bloques de Transacciónes" $ do
     it " impactar el bloque1 en pepe , y su saldo debe ser de 18 monedas " $ comoQuedaSaldo bloque1 pepe  `shouldBe` nuevaBilletera 18 pepe
     it " determinar saldo menor a N creditos, para pepe y lucho , mostrando el que quede con saldo mayor a 10: pepe" $ usuarioConSaldoSegunNCreditos 10 bloque1 [pepe,lucho] `shouldBe` [pepe]
+    it " determinar quien es el mas adinerado con cierto bloque, en caso de empate elegir cualquiera, pepe el mas adinerado" $ elMasDinerado bloque1 pepe lucho `shouldBe` pepe
+    it " determinar el menos adinerado, lucho el menos adinerado" $ elMenosAdinerado bloque1 pepe lucho `shouldBe` lucho
 
 nuevaBilletera :: Float -> Usuario -> Usuario
 nuevaBilletera otraBilletera unUsuario = unUsuario{billetera = otraBilletera}
@@ -164,8 +166,26 @@ comoQuedaSaldo unBloque unUsuario  = foldr impactar unUsuario unBloque
 usuarioConSaldoSegunNCreditos :: Float -> Bloque -> [Usuario] ->  [Usuario]
 usuarioConSaldoSegunNCreditos unCredito unBloque unosUsuarios = filter ((>= unCredito).billetera.(comoQuedaSaldo unBloque)) unosUsuarios
 
+-- al final opte por la forma mas facil jajaja
+elMasDinerado unBloque unUsuario unosUsuarios   | (billetera.comoQuedaSaldo unBloque) unUsuario >= (billetera.comoQuedaSaldo unBloque) unosUsuarios = unUsuario
+                                                | otherwise = unosUsuarios
+elMenosAdinerado unBloque unUsuario unosUsuarios| (billetera.comoQuedaSaldo unBloque) unUsuario <= (billetera.comoQuedaSaldo unBloque) unosUsuarios = unUsuario
+                                                | otherwise = unosUsuarios
+
 bloque2 :: Bloque
 bloque2 = [transacción2,transacción2,transacción2,transacción2,transacción2]
 
 blockChain :: [Bloque]
 blockChain = [bloque2,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1]
+
+
+-- ************************************* blockChain Infinito **************************************************
+-- pide crear un block infinito
+concatenarBloque :: Bloque -> Bloque
+concatenarBloque unBloque = unBloque ++ unBloque
+creacionDeBloques:: Bloque -> Bloque
+creacionDeBloques unBloque = unBloque ++ creacionDeBloques (concatenarBloque unBloque)
+blockChainInfinito :: Bloque
+blockChainInfinito =  creacionDeBloques bloque1
+-- lo jodido es hacer una funcion para buscar en que cantidad de bloques cumple en que pepe tenga $10000
+-- creo que haciendo recursiva y sumando de a 1 ..deberia salir ..bah es lo que se me ocurre pero cuesta plasmarlo jajaja
