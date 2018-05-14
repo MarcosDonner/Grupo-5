@@ -150,6 +150,11 @@ impactar unaTransaccion unUsuario = unaTransaccion unUsuario
 
 type Bloque = [Transacción]
 
+--Repetidor--
+repetir 0 _ unUsuario = unUsuario
+repetir cantidad unaTransacción unUsuario = repetir (cantidad - 1) unaTransacción (unaTransacción unUsuario)
+
+pruebaMarcos = (transacción2.transacción2.transacción2)
 
 bloque1 :: Bloque
 bloque1 = [transacción1,transacción2,transacción2,transacción2,transacción3,transacción4,transacción5,transacción3]
