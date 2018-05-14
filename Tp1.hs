@@ -38,7 +38,7 @@ ejecutarTest = hspec $ do
 --Tipos--
 
 type Evento = Usuario -> Usuario
-type Transacción = Evento
+
 
 --Eventos--
 
@@ -92,19 +92,18 @@ lucho2 = Usuario "Lucho" 10
 
 prueba = Usuario "prueba" 10
 
---Transaccciones 1 y 2--
+--Transacción general--
 
-transacción1 :: Transacción
-transacción1 unUsuario | nombre unUsuario == "Lucho" = cierreDeCuenta unUsuario
-                       | otherwise = quedaIgual unUsuario
+transacciónSimple unEvento usuarioAVerificar unUsuario | compararNombre unUsuario usuarioAVerificar = unEvento unUsuario
+                                                       | otherwise = unUsuario
 
-transacción2 :: Transacción
-transacción2 unUsuario | nombre unUsuario == "Pepe"  = deposito 5 unUsuario
-                       | otherwise = quedaIgual unUsuario
+compararNombre algunUsuario otroUsuario = nombre algunUsuario == nombre otroUsuario
 
--- Nuevos eventos --
--- de hecho estoy dudando si va esto, basicamente lo puse por que dice agregar como funciones el tocoYmeVoy y ahorranteErrante
--- ya que sino, esto basica-mente se puede probar en consola con composicion y es idem!
+--Transacciónes 1 y 2
+
+transacción1 = (transacciónSimple quedaIgual lucho) 
+
+transacción2 = (transacciónSimple (deposito 5) pepe)
 
 tocoYmeVoy :: Evento
 tocoYmeVoy unUsuario = (cierreDeCuenta.upgrade.deposito 15) unUsuario
@@ -113,26 +112,20 @@ ahorranteErrante :: Evento
 ahorranteErrante unUsuario = (deposito 10.upgrade.deposito 8. extracción 1. deposito 2.deposito 1) unUsuario
 
 --Transacciones de prueba pedidas a modo de prueba por enunciado--
-transacción3 :: Transacción
-transacción3 unUsuario = tocoYmeVoy unUsuario
 
-transacción4 :: Transacción
-transacción4 unUsuario = ahorranteErrante unUsuario
+transacción3 = (transacciónSimple tocoYmeVoy lucho)
 
---Transaccción mas compleja--
+transacción4 = (transacciónSimple ahorranteErrante lucho) 
 
-transacción5 :: Transacción
-transacción5 unUsuario | nombre unUsuario == "Pepe" = extracción 7 unUsuario
-                       | nombre unUsuario == "Lucho" = deposito 7 lucho
-                       | otherwise = quedaIgual unUsuario
+--Transaccción más compleja--
 
+transacciónCompleja usuarioDa dineroQueDa usuarioRecibe unUsuario | compararNombre usuarioDa unUsuario = extracción dineroQueDa unUsuario 
+                                                                  | compararNombre usuarioRecibe unUsuario = deposito dineroQueDa unUsuario 
+                                                                  | otherwise = quedaIgual unUsuario
 
-compararNombre algunUsuario otroUsuario = nombre algunUsuario == nombre otroUsuario
+--Transaccíon5--
 
---transacción unUsuario unEvento usuarioAVerificar | compararNombre unUsuario usuarioAVerificar = unEvento unUsuario
-  --                                               |  = unEvento usuarioAVerificar
---                                                 | otherwise = unUsuario
-
+transacción5 = (transacciónCompleja pepe 7 lucho)
 
 
 -- ******************************************* Parte 2 ***********************************************************
@@ -156,6 +149,7 @@ impactar :: Transacción -> Usuario -> Usuario
 impactar unaTransaccion unUsuario = unaTransaccion unUsuario
 
 type Bloque = [Transacción]
+
 
 bloque1 :: Bloque
 bloque1 = [transacción1,transacción2,transacción2,transacción2,transacción3,transacción4,transacción5,transacción3]
