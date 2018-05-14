@@ -38,7 +38,7 @@ ejecutarTest = hspec $ do
 --Tipos--
 
 type Evento = Usuario -> Usuario
-
+type Transacción = Evento
 
 --Eventos--
 
@@ -101,7 +101,7 @@ compararNombre algunUsuario otroUsuario = nombre algunUsuario == nombre otroUsua
 
 --Transacciónes 1 y 2
 
-transacción1 = (transacciónSimple quedaIgual lucho) 
+transacción1 = (transacciónSimple quedaIgual lucho)
 
 transacción2 = (transacciónSimple (deposito 5) pepe)
 
@@ -115,12 +115,12 @@ ahorranteErrante unUsuario = (deposito 10.upgrade.deposito 8. extracción 1. dep
 
 transacción3 = (transacciónSimple tocoYmeVoy lucho)
 
-transacción4 = (transacciónSimple ahorranteErrante lucho) 
+transacción4 = (transacciónSimple ahorranteErrante lucho)
 
 --Transaccción más compleja--
 
-transacciónCompleja usuarioDa dineroQueDa usuarioRecibe unUsuario | compararNombre usuarioDa unUsuario = extracción dineroQueDa unUsuario 
-                                                                  | compararNombre usuarioRecibe unUsuario = deposito dineroQueDa unUsuario 
+transacciónCompleja usuarioDa dineroQueDa usuarioRecibe unUsuario | compararNombre usuarioDa unUsuario = extracción dineroQueDa unUsuario
+                                                                  | compararNombre usuarioRecibe unUsuario = deposito dineroQueDa unUsuario
                                                                   | otherwise = quedaIgual unUsuario
 
 --Transaccíon5--
