@@ -145,16 +145,14 @@ pruebaEventosTP2 = hspec $ do
 nuevaBilletera :: Float -> Usuario -> Usuario
 nuevaBilletera otraBilletera unUsuario = unUsuario{billetera = otraBilletera}
 
-impactar :: Transacción -> Usuario -> Usuario
-impactar unaTransaccion unUsuario = unaTransaccion unUsuario
+impactar :: Transacción -> Transacción
+impactar unaTransacción unUsuario = unaTransacción unUsuario
 
 type Bloque = [Transacción]
-
+type BlockChain = [Bloque]
 --Repetidor--
 repetir 0 _ unUsuario = unUsuario
 repetir cantidad unaTransacción unUsuario = repetir (cantidad - 1) unaTransacción (unaTransacción unUsuario)
-
-pruebaMarcos = (transacción2.transacción2.transacción2)
 
 bloque1 :: Bloque
 bloque1 = [transacción1,transacción2,transacción2,transacción2,transacción3,transacción4,transacción5,transacción3]
@@ -165,12 +163,13 @@ comoQuedaSaldo unBloque unUsuario  = foldr impactar unUsuario unBloque
 usuarioConSaldoSegunNCreditos :: Float -> Bloque -> [Usuario] ->  [Usuario]
 usuarioConSaldoSegunNCreditos unCredito unBloque unosUsuarios = filter ((>= unCredito).billetera.(comoQuedaSaldo unBloque)) unosUsuarios
 
-adineradoMayor :: Bloque -> Usuario -> Usuario-> Usuario
+adineradoMayor :: Bloque -> Usuario -> Usuario -> Usuario
 adineradoMayor unBloque unUsuario unosUsuarios | (billetera.comoQuedaSaldo unBloque) unUsuario > (billetera.comoQuedaSaldo unBloque) unosUsuarios = unUsuario
-                                               |otherwise = unosUsuarios
+                                               | otherwise = unosUsuarios
 adineradoMenor :: Bloque -> Usuario -> Usuario-> Usuario
 adineradoMenor unBloque unUsuario unosUsuarios | (billetera.comoQuedaSaldo unBloque) unUsuario < (billetera.comoQuedaSaldo unBloque) unosUsuarios = unUsuario
                                                | otherwise = unosUsuarios
+
 elMasAdinerado :: Bloque -> [Usuario] -> Usuario
 elMasAdinerado unBloque (unUsuario:unosUsuarios) = foldr (adineradoMayor unBloque) unUsuario unosUsuarios
 elMenosAdinerado :: Bloque -> [Usuario] -> Usuario
@@ -180,7 +179,7 @@ elMenosAdinerado unBloque (unUsuario:unosUsuarios) = foldr (adineradoMenor unBlo
 bloque2 :: Bloque
 bloque2 = [transacción2,transacción2,transacción2,transacción2,transacción2]
 
-blockChain :: [Bloque]
+blockChain :: BlockChain
 blockChain = [bloque2,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1]
 
 
