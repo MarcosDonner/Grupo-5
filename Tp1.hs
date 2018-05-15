@@ -194,3 +194,4 @@ blockChainInfinito =  creacionDeBloques bloque1
 -- lo jodido es hacer una funcion para buscar en que cantidad de bloques cumple en que pepe tenga $10000
 -- creo que haciendo recursiva y sumando de a 1 ..deberia salir ..bah es lo que se me ocurre muy al aire
 -- pero cuesta plasmarlo jaj
+--hola
