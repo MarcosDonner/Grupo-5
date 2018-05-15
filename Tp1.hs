@@ -141,7 +141,8 @@ pruebaEventosTP2 = hspec $ do
     it " determinar saldo menor a N creditos, para pepe y lucho , mostrando el que quede con saldo mayor a 10: pepe" $ usuarioConSaldoSegunNCreditos 10 bloque1 [pepe,lucho] `shouldBe` [pepe]
     it " determinar quien es el mas adinerado con cierto bloque, en caso de empate elegir cualquiera, pepe el mas adinerado" $ elMasAdinerado bloque1 [pepe,lucho]`shouldBe` pepe
     it " determinar el menos adinerado, lucho el menos adinerado" $ elMenosAdinerado bloque1 [pepe,lucho] `shouldBe` lucho
-
+--    it " "
+    it " determinar como queda la billetera de pepe con el blockChain, debe quedar 115 de monedas" $ paraTest26 blockChain pepe `shouldBe` nuevaBilletera 115 pepe
 nuevaBilletera :: Float -> Usuario -> Usuario
 nuevaBilletera otraBilletera unUsuario = unUsuario{billetera = otraBilletera}
 
@@ -183,6 +184,7 @@ blockChain :: BlockChain
 blockChain = [bloque2,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1]
 
 
+paraTest26 unBlockChain unUsuario = comoQuedaSaldo (concat unBlockChain) unUsuario
 -- ************************************* blockChain Infinito **************************************************
 -- pide crear un block infinito
 concatenarBloque :: Bloque -> Bloque
