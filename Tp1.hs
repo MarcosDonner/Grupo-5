@@ -101,8 +101,10 @@ compararNombre algunUsuario otroUsuario = nombre algunUsuario == nombre otroUsua
 
 --Transacciónes 1 y 2
 
+transacción1 :: Transacción
 transacción1 = (transacciónSimple quedaIgual lucho)
 
+transacción2 :: Transacción
 transacción2 = (transacciónSimple (deposito 5) pepe)
 
 tocoYmeVoy :: Evento
@@ -113,8 +115,10 @@ ahorranteErrante unUsuario = (deposito 10.upgrade.deposito 8. extracción 1. dep
 
 --Transacciones de prueba pedidas a modo de prueba por enunciado--
 
+transacción3 :: Transacción
 transacción3 = (transacciónSimple tocoYmeVoy lucho)
 
+transacción4 :: Transacción
 transacción4 = (transacciónSimple ahorranteErrante lucho)
 
 --Transaccción más compleja--
@@ -125,6 +129,7 @@ transacciónCompleja usuarioDa dineroQueDa usuarioRecibe unUsuario | compararNom
 
 --Transaccíon5--
 
+transacción5 :: Transacción
 transacción5 = (transacciónCompleja pepe 7 lucho)
 
 
@@ -197,3 +202,7 @@ blockChainInfinito =  creacionDeBloques bloque1
 -- creo que haciendo recursiva y sumando de a 1 ..deberia salir ..bah es lo que se me ocurre muy al aire
 -- pero cuesta plasmarlo jaj
 --hola
+
+aplicarListaDeBloques listaBloque unUsuario = foldr (\listaBloque -> map (head[listaBloque])) unUsuario
+
+--peorBloque unUsuario [listaBloque] =
