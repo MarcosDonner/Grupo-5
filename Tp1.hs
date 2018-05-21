@@ -139,15 +139,16 @@ transacción5 = (transacciónCompleja pepe 7 lucho)
 pruebaEventosTP2 = hspec $ do
   describe " Usuario luego de la Transaccion " $ do
     it " impactar Transaccion 1 a pepe. Debe quedar igual" $ impactar transacción1 pepe `shouldBe` pepe
-    it " impactar Transaccion 5 a lucho. Obteniendo 9 monedas en su billetera" $ impactar transacción5 lucho `shouldBe` nuevaBilletera 9 lucho
-    it " impactar transacción5 y luego transacción2 a pepe. Obteniendo saldo 8 en su billetera" $ impactar (transacción2.transacción5) pepe `shouldBe` nuevaBilletera 8 pepe
+    it " impactar Transaccion 5 a lucho. Obteniendo 9 monedas en su billetera" $ (billetera.impactar transacción5) lucho `shouldBe` 9
+    it " impactar transacción5 y luego transacción2 a pepe. Obteniendo saldo 8 en su billetera" $ (billetera.impactar (transacción2.transacción5)) pepe `shouldBe` 8
     describe " Usuario luego de Aplicar bloques de Transacciónes" $ do
-    it " impactar el bloque1 en pepe , y su saldo debe ser de 18 monedas " $ comoQuedaSaldo bloque1 pepe  `shouldBe` nuevaBilletera 18 pepe
+    it " impactar el bloque1 en pepe , y su saldo debe ser de 18 monedas " $ (billetera.(comoQuedaSaldoDePersona bloque1)) pepe  `shouldBe` 18
     it " determinar saldo menor a N creditos, para pepe y lucho , mostrando el que quede con saldo mayor a 10: pepe" $ usuarioConSaldoSegunNCreditos 10 bloque1 [pepe,lucho] `shouldBe` [pepe]
     it " determinar quien es el mas adinerado con cierto bloque, en caso de empate elegir cualquiera, pepe el mas adinerado" $ elMasAdinerado bloque1 [pepe,lucho]`shouldBe` pepe
     it " determinar el menos adinerado, lucho el menos adinerado" $ elMenosAdinerado bloque1 [pepe,lucho] `shouldBe` lucho
 --    it " "
-    it " determinar como queda la billetera de pepe con el blockChain, debe quedar 115 de monedas" $ paraTest26 blockChain pepe `shouldBe` nuevaBilletera 115 pepe
+    it " determinar como queda la billetera de pepe con el blockChain, debe quedar 115 de monedas" $ (billetera.(paraTest26 blockChain)) pepe `shouldBe` 115
+    it " saber el saldo en cierto punto, recorriendo los primeros N bloques , tomando 3 primeros bloques , pepe con 51 monedas" $ (billetera.(saberSaldoHastaNBloque blockChain 3)) pepe `shouldBe` 51
     it " determinar como queda billetera de un conjunto usuarios, pepe con 115 minedas y lucho con 0" $ paraTest28 [pepe,lucho] `shouldBe` 115
 nuevaBilletera :: Float -> Usuario -> Usuario
 nuevaBilletera otraBilletera unUsuario = unUsuario{billetera = otraBilletera}
@@ -164,17 +165,17 @@ repetir cantidad unaTransacción unUsuario = repetir (cantidad - 1) unaTransacci
 bloque1 :: Bloque
 bloque1 = [transacción1,transacción2,transacción2,transacción2,transacción3,transacción4,transacción5,transacción3]
 
-comoQuedaSaldo::  Bloque -> Usuario-> Usuario
-comoQuedaSaldo unBloque unUsuario  = foldr impactar unUsuario unBloque
+comoQuedaSaldoDePersona::  Bloque -> Usuario-> Usuario
+comoQuedaSaldoDePersona unBloque unUsuario  = foldr impactar unUsuario unBloque
 
 usuarioConSaldoSegunNCreditos :: Float -> Bloque -> [Usuario] ->  [Usuario]
-usuarioConSaldoSegunNCreditos unCredito unBloque unosUsuarios = filter ((>= unCredito).billetera.(comoQuedaSaldo unBloque)) unosUsuarios
+usuarioConSaldoSegunNCreditos unCredito unBloque unosUsuarios = filter ((>= unCredito).billetera.(comoQuedaSaldoDePersona unBloque)) unosUsuarios
 
 adineradoMayor :: Bloque -> Usuario -> Usuario -> Usuario
-adineradoMayor unBloque unUsuario unosUsuarios | (billetera.comoQuedaSaldo unBloque) unUsuario > (billetera.comoQuedaSaldo unBloque) unosUsuarios = unUsuario
+adineradoMayor unBloque unUsuario unosUsuarios | (billetera.comoQuedaSaldoDePersona unBloque) unUsuario > (billetera.comoQuedaSaldoDePersona unBloque) unosUsuarios = unUsuario
                                                | otherwise = unosUsuarios
 adineradoMenor :: Bloque -> Usuario -> Usuario-> Usuario
-adineradoMenor unBloque unUsuario unosUsuarios | (billetera.comoQuedaSaldo unBloque) unUsuario < (billetera.comoQuedaSaldo unBloque) unosUsuarios = unUsuario
+adineradoMenor unBloque unUsuario unosUsuarios | (billetera.comoQuedaSaldoDePersona unBloque) unUsuario < (billetera.comoQuedaSaldoDePersona unBloque) unosUsuarios = unUsuario
                                                | otherwise = unosUsuarios
 
 elMasAdinerado :: Bloque -> [Usuario] -> Usuario
@@ -189,8 +190,10 @@ bloque2 = [transacción2,transacción2,transacción2,transacción2,transacción2
 blockChain :: BlockChain
 blockChain = [bloque2,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1,bloque1]
 
+saberSaldoHastaNBloque:: BlockChain ->Int -> Usuario -> Usuario
+saberSaldoHastaNBloque unBloque unaCantidad  unUsuario = comoQuedaSaldoDePersona(concat (take unaCantidad unBloque)) unUsuario
 
-paraTest26 unBlockChain unUsuario = comoQuedaSaldo (concat unBlockChain) unUsuario
+paraTest26 unBlockChain unUsuario = comoQuedaSaldoDePersona (concat unBlockChain) unUsuario
 paraTest28 unosUsuarios = (sum.(map billetera . map (paraTest26 blockChain))) unosUsuarios
 -- ************************************* blockChain Infinito **************************************************
 -- pide crear un block infinito
