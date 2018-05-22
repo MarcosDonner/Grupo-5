@@ -215,3 +215,6 @@ aplicarListaDeBloques listaBloque unUsuario = foldr (\listaBloque -> map (head[l
 parar = ($)
 
 pararBloque = comoQuedaSaldoDePersona 
+
+pararCuando unBloque unUsuario = ((>10000) . billetera) 
+pararCuando unBloque unUsuario = (billetera . comoQuedaSaldoDePersona unBloque) unUsuario 
