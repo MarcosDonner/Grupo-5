@@ -211,3 +211,7 @@ blockChainInfinito =  creacionDeBloques bloque1
 aplicarListaDeBloques listaBloque unUsuario = foldr (\listaBloque -> map (head[listaBloque])) unUsuario
 
 --peorBloque unUsuario [listaBloque] =
+
+parar = ($)
+
+pararBloque = comoQuedaSaldoDePersona 
