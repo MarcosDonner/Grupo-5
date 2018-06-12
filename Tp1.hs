@@ -78,15 +78,17 @@ quedaIgual unUsuario = unUsuario
 
 data Usuario = Usuario {
         nombre :: String,
-        billetera :: Float
+        billetera :: Float,
+        sentimientos :: [Sentimiento]
         } deriving (Show, Eq)
 
 --Usuarios
+type Sentimiento = String
 
-pepe   = Usuario "Pepe" 10
-lucho  = Usuario "Lucho" 2
-pepe2  = Usuario "Pepe" 50
-lucho2 = Usuario "Lucho" 10
+pepe   = Usuario "Pepe" 10 ["alegria"]
+lucho  = Usuario "Lucho" 2 ["feliz"]
+pepe2  = Usuario "Pepe" 50 ["paz"]
+lucho2 = Usuario "Lucho" 10 ["triste"]
 --Usuario de prueba a fin de no volver a repetir a pepe ya que es pedido como prueba especifica
 --en el caso de uso 8 en adelante
 
@@ -214,7 +216,11 @@ aplicarListaDeBloques listaBloque unUsuario = foldr (\listaBloque -> map (head[l
 
 parar = ($)
 
+<<<<<<< Updated upstream
 pararBloque = comoQuedaSaldoDePersona 
 
 pararCuando unBloque unUsuario = ((>10000) . billetera) 
 pararCuando unBloque unUsuario = (billetera . comoQuedaSaldoDePersona unBloque) unUsuario 
+=======
+pararBloque = comoQuedaSaldoDePersona
+>>>>>>> Stashed changes
