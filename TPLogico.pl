@@ -54,7 +54,8 @@ serieQueVeOPlaneaVer(PersonaSpoileada,Serie):-quiereVer(PersonaSpoileada,Serie).
 
 /* PUNTO 5 */
 televidenteResponsable(Persona):-
-                                not(leSpoileo(Persona,_,_)).
+  leSpoileo(Persona,_,_),
+  not(leSpoileo(Persona,_,_)).
 /*
 serieQueVeOPlaneaVer(Persona,Serie),
 not(leSpoileo(Persona,_,Serie)).
