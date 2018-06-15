@@ -47,15 +47,18 @@ esSpoiler(Serie,Spoiler):- paso(Serie,_,_,Spoiler).
 /*se puede hacer preguntas existenciales e individuales */
 
 /*PUNTO 4*/
-leSpoileo(Persona,PersonaSpoileada,Serie):- leDijo(Persona,PersonaSpoileada,Serie,_),
+leSpoileo(Persona,PersonaSpoileada,Serie):- leDijo(Persona,PersonaSpoileada,Serie,Spoiler),
+                                            esSpoiler(Serie,Spoiler),
                                             serieQueVeOPlaneaVer(PersonaSpoileada,Serie).
 serieQueVeOPlaneaVer(PersonaSpoileada,Serie):-queMira(PersonaSpoileada,Serie).
 serieQueVeOPlaneaVer(PersonaSpoileada,Serie):-quiereVer(PersonaSpoileada,Serie).
 
 /* PUNTO 5 */
-televidenteResponsable(Persona):-
-  leSpoileo(Persona,_,_),
-  not(leSpoileo(Persona,_,_)).
+televidenteResponsable(Persona):-serieQueVeOPlaneaVer(Persona,_),
+                                 not(leSpoileo(Persona,_,_)).
+  %forall(serieQueVeOPlaneaVer(Persona,_),not(leSpoileo(Persona,_,_))).
+
+
 /*
 serieQueVeOPlaneaVer(Persona,Serie),
 not(leSpoileo(Persona,_,Serie)).
