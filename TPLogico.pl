@@ -153,7 +153,7 @@ test(nico_le_dijo_a_maiu_spoiler_StarWars,nondet) :-
 :- begin_tests(punto5).
 test(juan_es_televidente_responsable,nondet):-
   televidenteResponsable(juan).
-test(aye_es_televidente_responsable,nondet):- /* problema con el test en aye!*/
+test(aye_no_es_televidente_responsable,nondet):- /* problema con el test en aye!*/
   televidenteResponsable(aye).
 test(maiu_es_televidente_responsable,nondet):-
   televidenteResponsable(maiu).
