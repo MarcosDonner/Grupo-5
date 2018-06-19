@@ -16,6 +16,7 @@ quiereVer(juan,hoc).
 quiereVer(aye,got).
 quiereVer(gaston,himym).
 
+%serie,Temporada,Capitulo
 capitulosPorTemporada(got,3,12).
 capitulosPorTemporada(got,2,10).
 capitulosPorTemporada(himym,1,23).
@@ -26,6 +27,7 @@ idem para alf */
 
 /* PUNTO 2*/
 /*COSAS IMPORTANTES QUE PASO EN LAS SERIES*/
+% serie,Temporada,Capitulo,LoquePaso
 paso(futurama,2,3,muerte(seymourDiera)).
 paso(starWars,10,9,muerte(emperor)).
 paso(starWars,1,2,relacion(parentesco, anakin, rey)).
@@ -66,15 +68,19 @@ not(leSpoileo(Persona,_,Serie)).
 /* PUNTO 6 */
 
 
-vieneZafando(Persona,Serie):- serieQueVeOPlaneaVer(Persona,Serie),
+vieneZafando(PersonaASpoilear,Serie):- serieQueVeOPlaneaVer(PersonaASpoilear,Serie),
                               esPopularOPasaCosasFuertes(Serie),
-                              not(leSpoileo(Persona,_,Serie)).
+                              not(leSpoileo(_,PersonaASpoilear,Serie)).
 esPopularOPasaCosasFuertes(Serie):- populares(Serie).
-esPopularOPasaCosasFuertes(Serie):- pasoCosasFuertes(Serie).
+esPopularOPasaCosasFuertes(Serie):- pasoCosasFuertesEnSusTemporadas(Serie).
 
-pasoCosasFuertes(Serie):- paso(Serie,_,_,relacion(amorosa,_,_)).
-pasoCosasFuertes(Serie):- paso(Serie,_,_,muerte(_)).
-pasoCosasFuertes(Serie):- paso(Serie,_,_,relacion(parentesco,_,_)).
+pasoCosasFuertesEnSusTemporadas(Serie):-
+    capitulosPorTemporada(Serie,Temporada,_),
+    sucesoFuerteTemporada(Serie,Temporada).
+
+sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,muerte(_)).
+sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(parentesco,_,_)).
+sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(amorosa,_,_)).
 
 % algo no funciona con los test, tal vez por que hice mal esta parte, por que falto algo o no se ... si pueden revisen
 % comente los test para que no salte error al compilar
@@ -173,13 +179,12 @@ test(gaston_no_es_televidente_responsable,fail):-
 :- end_tests(punto5).
 
 /* **** PUNTO 6 *****/
-/*
+
 :- begin_tests(punto6).
 test(maiu_no_viene_zafando,fail):-
   vieneZafando(maiu,_).
 %test(juan_viene_zafando_himym_got_hoc,nondet):-
 %  vieneZafando(juan,himym).
 test(nico_zafa_con_StarWars,nondet):-
-  vieneZafando(nico,starwars).
+  vieneZafando(nico,starWars).
 :- end_tests(punto6).
-*/
