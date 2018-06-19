@@ -183,8 +183,12 @@ test(gaston_no_es_televidente_responsable,fail):-
 :- begin_tests(punto6).
 test(maiu_no_viene_zafando,fail):-
   vieneZafando(maiu,_).
-%test(juan_viene_zafando_himym_got_hoc,nondet):-
-%  vieneZafando(juan,himym).
+  test(juan_viene_zafando_himym,nondet):-
+   vieneZafando(juan,himym).
+  test(juan_viene_zafando_got,nondet):-
+     vieneZafando(juan,got).
+  test(juan_viene_zafando_hoc,nondet):-
+    vieneZafando(juan,hoc).
 test(nico_zafa_con_StarWars,nondet):-
   vieneZafando(nico,starWars).
 :- end_tests(punto6).
