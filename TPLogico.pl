@@ -135,7 +135,7 @@ capitulosPorTemporada(himym,1,23).
 capitulosPorTemporada(drHouse,8,16).
 
 /*no se implemento los episodios de mad men por que en este paradigma tomamos las cosas ciertas que pertenece a nuestro universo,
-no asi, para las cosas faltas que no se las considera, lo mismo es para Alf
+no asi, para las cosas faltas que no se las considera, lo mismo es para Alf */
 
 /* PUNTO 2*/
 /*COSAS IMPORTANTES QUE PASO EN LAS SERIES*/
@@ -158,7 +158,7 @@ leDijo(aye, gaston, got, relacion(amistad, tyrion, dragon)).
 
 /*PUNTO 3*/
 esSpoiler(Serie,Spoiler):- paso(Serie,_,_,Spoiler).
-/*se puede hacer preguntas existenciales e individuales, existenciales por Inversibilidad y individuales que estan ligados a valores 
+/*se puede hacer preguntas existenciales e individuales, existenciales por Inversibilidad y individuales que estan ligados a valores*/
 
 /*PUNTO 4*/
 leSpoileo(Persona,PersonaSpoileada,Serie):- leDijo(Persona,PersonaSpoileada,Serie,Spoiler),
