@@ -1,4 +1,4 @@
-/* ********************************************** TEST ****************************************************** */
+/*********************************************** TEST ****************************************************** */
 :- begin_tests(punto1).
 test(juanMira_himymFuturamaGot, nondet) :-
   queMira(juan,got),
@@ -23,7 +23,7 @@ test(aye_planea_ver_got, nondet):-
 test(gaston_planea_ver_himym,nondet):-
   quiereVer(gaston,himym).
 :- end_tests(punto1b).
-/* *** PUNTO2 **** */
+/* *** PUNTO2 *****/
 :- begin_tests(punto2).
 test(muerte_seymourDiera,nondet):-
   paso(futurama,2,3,muerte(seymourDiera)).
@@ -96,20 +96,17 @@ test(gaston_no_es_televidente_responsable,fail):-
 :- begin_tests(punto6).
 test(maiu_no_viene_zafando,fail):-
   vieneZafando(maiu,_).
-  test(juan_viene_zafando_himym,nondet):-
-   vieneZafando(juan,himym).
-  test(juan_viene_zafando_got,nondet):-
-     vieneZafando(juan,got).
-  test(juan_viene_zafando_hoc,nondet):-
-    vieneZafando(juan,hoc).
+test(juan_viene_zafando_himym,nondet):-
+ vieneZafando(juan,himym).
+test(juan_viene_zafando_got,nondet):-
+   vieneZafando(juan,got).
+test(juan_viene_zafando_hoc,nondet):-
+  vieneZafando(juan,hoc).
 test(nico_zafa_con_StarWars,nondet):-
   vieneZafando(Persona,starWars),
   Persona == nico.
 :- end_tests(punto6).
-
-
-/*********************************************** Base ****************************************************** */
-
+/* ***************************************** BASE ************************************************************* */
 queMira(juan,got).
 queMira(juan,himym).
 queMira(juan,futurama).
@@ -128,7 +125,7 @@ quiereVer(juan,hoc).
 quiereVer(aye,got).
 quiereVer(gaston,himym).
 
-%serie,Temporada,Capitulo
+% serie, temporada, capitulos
 capitulosPorTemporada(got,3,12).
 capitulosPorTemporada(got,2,10).
 capitulosPorTemporada(himym,1,23).
@@ -139,7 +136,7 @@ no asi, para las cosas faltas que no se las considera, lo mismo es para Alf */
 
 /* PUNTO 2*/
 /*COSAS IMPORTANTES QUE PASO EN LAS SERIES*/
-% serie,Temporada,Capitulo,LoquePaso
+% serie, temporada,Capitulo,LoQuePaso
 paso(futurama,2,3,muerte(seymourDiera)).
 paso(starWars,10,9,muerte(emperor)).
 paso(starWars,1,2,relacion(parentesco, anakin, rey)).
@@ -158,7 +155,7 @@ leDijo(aye, gaston, got, relacion(amistad, tyrion, dragon)).
 
 /*PUNTO 3*/
 esSpoiler(Serie,Spoiler):- paso(Serie,_,_,Spoiler).
-/*se puede hacer preguntas existenciales e individuales, existenciales por Inversibilidad y individuales que estan ligados a valores*/
+/*se puede hacer preguntas existenciales e individuales */
 
 /*PUNTO 4*/
 leSpoileo(Persona,PersonaSpoileada,Serie):- leDijo(Persona,PersonaSpoileada,Serie,Spoiler),
@@ -184,8 +181,8 @@ esPopularOPasaCosasFuertes(Serie):- populares(Serie).
 esPopularOPasaCosasFuertes(Serie):- pasoCosasFuertesEnSusTemporadas(Serie).
 
 pasoCosasFuertesEnSusTemporadas(Serie):-
-    capitulosPorTemporada(Serie,Temporada),
-    forall(capitulosPorTemporada(Serie,Temporada,_),sucesoFuerteTemporada(Serie,Temporada)).
+    capitulosPorTemporada(Serie,Temporada,_),
+    forall(capitulosPorTemporada(Serie,Temporada,_), sucesoFuerteTemporada(Serie,Temporada)).
 
 
 sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,muerte(_)).
