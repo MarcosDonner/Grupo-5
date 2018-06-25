@@ -1,3 +1,84 @@
+/*********************************************** Base ****************************************************** */
+queMira(juan,got).
+queMira(juan,himym).
+queMira(juan,futurama).
+queMira(nico,starWars).
+queMira(maiu,starWars).
+queMira(maiu,onePiece).
+queMira(maiu,got).
+queMira(nico,got).
+queMira(gaston,hoc).
+
+populares(got).
+populares(hoc).
+populares(starWars).
+
+quiereVer(juan,hoc).
+quiereVer(aye,got).
+quiereVer(gaston,himym).
+
+%serie,Temporada,Capitulo
+capitulosPorTemporada(got,3,12).
+capitulosPorTemporada(got,2,10).
+capitulosPorTemporada(himym,1,23).
+capitulosPorTemporada(drHouse,8,16).
+
+/*no se implemento los episodios de mad men por que en este paradigma tomamos las cosas ciertas que pertenece a nuestro universo,
+no asi, para las cosas faltas que no se las considera, lo mismo es para Alf */
+
+/* PUNTO 2*/
+/*COSAS IMPORTANTES QUE PASO EN LAS SERIES*/
+% serie,Temporada,Capitulo,LoquePaso
+paso(futurama,2,3,muerte(seymourDiera)).
+paso(starWars,10,9,muerte(emperor)).
+paso(starWars,1,2,relacion(parentesco, anakin, rey)).
+paso(starWars,3,2,relacion(parentesco, vader, luke)).
+paso(himym,1,1,relacion(amorosa, ted, robin)).
+paso(himym,4,3,relacion(amorosa, swarley, robin)).
+paso(got,4,5,relacion(amistad, tyrion, dragon)).
+
+/*SPOILEO A OTRA PERSONA! */
+leDijo(gaston, maiu, got, relacion(amistad, tyrion, dragon)).
+leDijo(nico, maiu, starWars, relacion(parentesco, vader, luke)).
+leDijo(nico, juan, got, muerte(tyrion)).
+leDijo(aye, juan, got, relacion(amistad, tyrion, john)).
+leDijo(aye, maiu, got, relacion(amistad, tyrion, john)).
+leDijo(aye, gaston, got, relacion(amistad, tyrion, dragon)).
+
+/*PUNTO 3*/
+esSpoiler(Serie,Spoiler):- paso(Serie,_,_,Spoiler).
+/*se puede hacer preguntas existenciales e individuales, existenciales por Inversibilidad y individuales que estan ligados a valores*/
+
+/*PUNTO 4*/
+leSpoileo(Persona,PersonaSpoileada,Serie):- leDijo(Persona,PersonaSpoileada,Serie,Spoiler),
+                                            esSpoiler(Serie,Spoiler),
+                                            serieQueVeOPlaneaVer(PersonaSpoileada,Serie).
+serieQueVeOPlaneaVer(PersonaSpoileada,Serie):-queMira(PersonaSpoileada,Serie).
+serieQueVeOPlaneaVer(PersonaSpoileada,Serie):-quiereVer(PersonaSpoileada,Serie).
+
+/* PUNTO 5 */
+televidenteResponsable(Persona):-serieQueVeOPlaneaVer(Persona,_),
+                                 not(leSpoileo(Persona,_,_)).
+  %forall(serieQueVeOPlaneaVer(Persona,_),not(leSpoileo(Persona,_,_))).
+/*
+serieQueVeOPlaneaVer(Persona,Serie),
+not(leSpoileo(Persona,_,Serie)).
+*/
+
+/* PUNTO 6 */
+vieneZafando(PersonaASpoilear,Serie):- serieQueVeOPlaneaVer(PersonaASpoilear,Serie),
+                              esPopularOPasaCosasFuertes(Serie),
+                              not(leSpoileo(_,PersonaASpoilear,Serie)).
+esPopularOPasaCosasFuertes(Serie):- populares(Serie).
+esPopularOPasaCosasFuertes(Serie):- pasoCosasFuertesEnSusTemporadas(Serie).
+
+pasoCosasFuertesEnSusTemporadas(Serie):-
+    capitulosPorTemporada(Serie,Temporada,_),
+    forall(capitulosPorTemporada(Serie,Temporada,_),sucesoFuerteTemporada(Serie,Temporada)).
+
+sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,muerte(_)).
+sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(parentesco,_,_)).
+sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(amorosa,_,_)).
 /* ********************************************** TEST ****************************************************** */
 :- begin_tests(punto1).
 test(juanMira_himymFuturamaGot, nondet) :-
@@ -106,88 +187,3 @@ test(nico_zafa_con_StarWars,nondet):-
   vieneZafando(Persona,starWars),
   Persona == nico.
 :- end_tests(punto6).
-
-
-/*********************************************** Base ****************************************************** */
-
-queMira(juan,got).
-queMira(juan,himym).
-queMira(juan,futurama).
-queMira(nico,starWars).
-queMira(maiu,starWars).
-queMira(maiu,onePiece).
-queMira(maiu,got).
-queMira(nico,got).
-queMira(gaston,hoc).
-
-populares(got).
-populares(hoc).
-populares(starWars).
-
-quiereVer(juan,hoc).
-quiereVer(aye,got).
-quiereVer(gaston,himym).
-
-%serie,Temporada,Capitulo
-capitulosPorTemporada(got,3,12).
-capitulosPorTemporada(got,2,10).
-capitulosPorTemporada(himym,1,23).
-capitulosPorTemporada(drHouse,8,16).
-
-/*no se implemento los episodios de mad men por que en este paradigma tomamos las cosas ciertas que pertenece a nuestro universo,
-no asi, para las cosas faltas que no se las considera, lo mismo es para Alf */
-
-/* PUNTO 2*/
-/*COSAS IMPORTANTES QUE PASO EN LAS SERIES*/
-% serie,Temporada,Capitulo,LoquePaso
-paso(futurama,2,3,muerte(seymourDiera)).
-paso(starWars,10,9,muerte(emperor)).
-paso(starWars,1,2,relacion(parentesco, anakin, rey)).
-paso(starWars,3,2,relacion(parentesco, vader, luke)).
-paso(himym,1,1,relacion(amorosa, ted, robin)).
-paso(himym,4,3,relacion(amorosa, swarley, robin)).
-paso(got,4,5,relacion(amistad, tyrion, dragon)).
-
-/*SPOILEO A OTRA PERSONA! */
-leDijo(gaston, maiu, got, relacion(amistad, tyrion, dragon)).
-leDijo(nico, maiu, starWars, relacion(parentesco, vader, luke)).
-leDijo(nico, juan, got, muerte(tyrion)).
-leDijo(aye, juan, got, relacion(amistad, tyrion, john)).
-leDijo(aye, maiu, got, relacion(amistad, tyrion, john)).
-leDijo(aye, gaston, got, relacion(amistad, tyrion, dragon)).
-
-/*PUNTO 3*/
-esSpoiler(Serie,Spoiler):- paso(Serie,_,_,Spoiler).
-/*se puede hacer preguntas existenciales e individuales, existenciales por Inversibilidad y individuales que estan ligados a valores*/
-
-/*PUNTO 4*/
-leSpoileo(Persona,PersonaSpoileada,Serie):- leDijo(Persona,PersonaSpoileada,Serie,Spoiler),
-                                            esSpoiler(Serie,Spoiler),
-                                            serieQueVeOPlaneaVer(PersonaSpoileada,Serie).
-serieQueVeOPlaneaVer(PersonaSpoileada,Serie):-queMira(PersonaSpoileada,Serie).
-serieQueVeOPlaneaVer(PersonaSpoileada,Serie):-quiereVer(PersonaSpoileada,Serie).
-
-/* PUNTO 5 */
-televidenteResponsable(Persona):-serieQueVeOPlaneaVer(Persona,_),
-                                 not(leSpoileo(Persona,_,_)).
-  %forall(serieQueVeOPlaneaVer(Persona,_),not(leSpoileo(Persona,_,_))).
-/*
-serieQueVeOPlaneaVer(Persona,Serie),
-not(leSpoileo(Persona,_,Serie)).
-*/
-
-/* PUNTO 6 */
-vieneZafando(PersonaASpoilear,Serie):- serieQueVeOPlaneaVer(PersonaASpoilear,Serie),
-                              esPopularOPasaCosasFuertes(Serie),
-                              not(leSpoileo(_,PersonaASpoilear,Serie)).
-esPopularOPasaCosasFuertes(Serie):- populares(Serie).
-esPopularOPasaCosasFuertes(Serie):- pasoCosasFuertesEnSusTemporadas(Serie).
-
-pasoCosasFuertesEnSusTemporadas(Serie):-
-    capitulosPorTemporada(Serie,Temporada),
-    forall(capitulosPorTemporada(Serie,Temporada,_),sucesoFuerteTemporada(Serie,Temporada)).
-
-
-sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,muerte(_)).
-sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(parentesco,_,_)).
-sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(amorosa,_,_)).
