@@ -79,6 +79,15 @@ pasoCosasFuertesEnSusTemporadas(Serie):-
 sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,muerte(_)).
 sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(parentesco,_,_)).
 sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(amorosa,_,_)).
+
+/* ********************************************** 2da PARTE ****************************************************** */
+
+malaGente(Persona):-leSpoileoATodos(Persona).
+
+leSpoileoATodos(Persona):-findall(Persona,leSpoileo(Persona,_,_),Spoileados).
+                          leDijo(Persona,Spoileados).
+/* Estoy casi seguro que se hace con el findall, no entiendo como planear la parte que informa que con todos los que hablo spoileo */                          
+
 /* ********************************************** TEST ****************************************************** */
 :- begin_tests(punto1).
 test(juanMira_himymFuturamaGot, nondet) :-
