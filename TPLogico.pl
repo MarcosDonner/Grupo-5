@@ -8,6 +8,7 @@ queMira(maiu,onePiece).
 queMira(maiu,got).
 queMira(nico,got).
 queMira(gaston,hoc).
+queMira(pedro, got).
 
 populares(got).
 populares(hoc).
@@ -44,6 +45,21 @@ leDijo(nico, juan, got, muerte(tyrion)).
 leDijo(aye, juan, got, relacion(amistad, tyrion, john)).
 leDijo(aye, maiu, got, relacion(amistad, tyrion, john)).
 leDijo(aye, gaston, got, relacion(amistad, tyrion, dragon)).
+leDijo(nico, juan, futurama, muerte(seymourDiera)).
+leDijo(pedro, aye, got, relacion(amistad, tyrion, dragon)).
+/*no agregue lo ultimo porque dice que no es cierto*/
+
+/*serie, temporada, capitulo, palabrasClave*/
+plotTwist(got, 3, 2, palabrasClave(suenio, sinPiernas)).
+plotTwist(got, 3, 12, palabrasClave(fuego, boda)).
+plotTwist(superCampeones, 9, 9, palabrasClave(suenio, coma, sinPiernas)).
+plotTwist(drHouse, 8, 7, palabrasClave(coma, pastillas)).
+
+/*Relacion de amistad*/
+amigo(nico, maiu).
+amigo(maiu, gaston).
+amigo(maiu, juan).
+amigo(juan, aye).
 
 /*PUNTO 3*/
 esSpoiler(Serie,Spoiler):- paso(Serie,_,_,Spoiler).
