@@ -23,8 +23,8 @@ capitulosPorTemporada(got,2,10).
 capitulosPorTemporada(himym,1,23).
 capitulosPorTemporada(drHouse,8,16).
 
-/*no se implemento los episodios de mad men por que en este paradigma tomamos las cosas ciertas que pertenece a nuestro universo,
-no asi, para las cosas faltas que no se las considera, lo mismo es para Alf */
+/*no se implemento los episodios de mad men por el principio de universo cerrado,
+que dice que solo se declaran las cosas verdaderas, lo mismo es para Alf */
 
 /* PUNTO 2*/
 /*COSAS IMPORTANTES QUE PASO EN LAS SERIES*/
@@ -47,7 +47,8 @@ leDijo(aye, gaston, got, relacion(amistad, tyrion, dragon)).
 
 /*PUNTO 3*/
 esSpoiler(Serie,Spoiler):- paso(Serie,_,_,Spoiler).
-/*se puede hacer preguntas existenciales e individuales, existenciales por Inversibilidad y individuales que estan ligados a valores*/
+/*se puede hacer preguntas existenciales (dejamos alguna variable sin ligar, ya sea como incógnita o como variable anónima)
+e individuales(Enviamos todas las variables con valores ya unificados. Buscamos que nos diga true o false)*/
 
 /*PUNTO 4*/
 leSpoileo(Persona,PersonaSpoileada,Serie):- leDijo(Persona,PersonaSpoileada,Serie,Spoiler),
@@ -86,7 +87,7 @@ malaGente(Persona):-leSpoileoATodos(Persona).
 
 leSpoileoATodos(Persona):-findall(Persona,leSpoileo(Persona,_,_),Spoileados).
                           leDijo(Persona,Spoileados).
-/* Estoy casi seguro que se hace con el findall, no entiendo como planear la parte que informa que con todos los que hablo spoileo */                          
+/* Estoy casi seguro que se hace con el findall, no entiendo como planear la parte que informa que con todos los que hablo spoileo */
 
 /* ********************************************** TEST ****************************************************** */
 :- begin_tests(punto1).
