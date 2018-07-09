@@ -144,6 +144,19 @@ cantidadQueHablanDeLaSerie(Serie,CantidadPosiblesSpoileros):-
   findall(Persona,leDijo(Persona,_,Serie,_),Personas),
   length(Personas,CantidadPosiblesSpoileros).
 
+esPopular(hoc).
+%ya que lo aclara, independientemente del calculo, es popu!
+/* PUNTO 4 */
+fullSpoil(PersonaSpoilera,PersonaSpoileada):-
+  leSpoileo(PersonaSpoilera,PersonaSpoileada,_),
+  noSonLosMismos(PersonaSpoilera,PersonaSpoileada).
+
+fullSpoil(PersonaSpoilera,PersonaSpoileada):-
+  %leSpoileo(AmigoDelSegundo,PersonaSpoileada),
+  amigo(ElAmigoDelSegundo,PersonaSpoilera),
+  fullSpoil(PersonaSpoilera,ElAmigoDelSegundo).
+
+noSonLosMismos(PersonaSpoilera,PersonaSpoileada):- PersonaSpoilera \= PersonaSpoileada.
 /* ********************************************** TEST ****************************************************** */
 :- begin_tests(punto1).
 test(juanMira_himymFuturamaGot, nondet) :-
@@ -288,3 +301,23 @@ test(got_esPopular,nondet):-
 test(hoc_esPopular,nondet):-
   esPopular(hoc).
 :- end_tests(parte2_punto3).
+
+/* PUNTO 4*/
+:- begin_tests(parte2_punto4).
+test(nico_hizo_fullSpoil_a_Aye,nondet):-
+  fullSpoil(nico,aye).
+test(nico_hizo_fullSpoil_a_Juan,nondet):-
+  fullSpoil(nico,juan).
+test(nico_hizo_fullSpoil_a_Maiu,nondet):-
+  fullSpoil(nico,maiu).
+test(nico_hizo_fullSpoil_a_Gaston,nondet):-
+  fullSpoil(nico,gaston).
+test(gaston_hizo_fullspoil_a_maiu,nondet):-
+  fullSpoil(gaston,maiu).
+test(gaston_hizo_fullspoil_a_juan,nondet):-
+  fullSpoil(gaston,juan).
+test(gaston_hizo_fullspoil_a_Aye,nondet):-
+  fullSpoil(gaston,aye).
+test(maiu_no_hizo_fullspoil_a_Nadie,fail):-
+  fullSpoil(miau,_).
+:- end_tests(parte2_punto4).
