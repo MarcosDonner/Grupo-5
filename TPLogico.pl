@@ -124,6 +124,25 @@ malaGente(Persona):-
 /* PUNTO 2 */
 %fuerte()
 
+/* PUNTO 3*/
+
+esPopular(Serie):-
+  popularidad(Serie,CantidadPopularidad),
+  popularidad(starWars,CantidadPopularidadStarWars),
+  CantidadPopularidad >= CantidadPopularidadStarWars.
+
+popularidad(Serie,CantidadPopularidad):-
+  cantidadQueMiranSerie(Serie,CantidadEspectadores),
+  cantidadQueHablanDeLaSerie(Serie,CantidadSpoileros),
+  CantidadPopularidad is CantidadEspectadores * CantidadSpoileros.
+
+cantidadQueMiranSerie(Serie,CantidadEspectadores):-
+  findall(Persona,queMira(Persona,Serie),Personas),
+  length(Personas,CantidadEspectadores).
+
+cantidadQueHablanDeLaSerie(Serie,CantidadPosiblesSpoileros):-
+  findall(Persona,leDijo(Persona,_,Serie,_),Personas),
+  length(Personas,CantidadPosiblesSpoileros).
 
 /* ********************************************** TEST ****************************************************** */
 :- begin_tests(punto1).
@@ -244,3 +263,28 @@ test(nico_es_MalaGente,nondet):-
 test(pedro_noesMalaGente,fail):-
   malaGente(pedro).
 :- end_tests(parte2_punto1).
+
+/*deje comentado el punto 2 por que no se como seguir jajaaj */
+/* PUNTO 2
+:- begin_tests(parte2_punto2).
+test(la_muerte_SeymourDiera_esFuerte,nondet):-
+  fuerte(muerte(seymourDiera)).
+test(muerte_emperor_esFuerte,nondet):-
+  fuerte(muerte(emperor)).
+test(relacion_parentesco_anakin_y_Rey_esFueret,nondet):-
+  fuerte(relacion(parentesco,vader,luke)).
+test(relacion_amorosa_ted_robin_esFuerte,nondet):-
+  fuerte(relacion(amorosa, ted, robin)).
+test(relacion_amorosa_swarley_robin_esFuerte,nondet):-
+  fuerte(relacion(amorosa, swarley, robin)).
+test(plotTwist_conPalabras_fuego_y_Boda_enGoT_esFuerte,nondet):-
+*/
+/* PUNTO 3 */
+:- begin_tests(parte2_punto3).
+test(starWars_esPopular,nondet):-
+  esPopular(starWars).
+test(got_esPopular,nondet):-
+  esPopular(got).
+test(hoc_esPopular,nondet):-
+  esPopular(hoc).
+:- end_tests(parte2_punto3).
