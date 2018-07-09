@@ -156,7 +156,7 @@ fullSpoil(PersonaSpoilera,PersonaSpoileada):-
 
 fullSpoil(PersonaSpoilera,PersonaSpoileada):-
   %leSpoileo(AmigoDelSegundo,PersonaSpoileada),
-  amigo(ElAmigoDelSegundo,PersonaSpoilera),
+  amigo(ElAmigoDelSegundo,PersonaSpoileada),
   fullSpoil(PersonaSpoilera,ElAmigoDelSegundo).
 
 noSonLosMismos(PersonaSpoilera,PersonaSpoileada):- PersonaSpoilera \= PersonaSpoileada.
