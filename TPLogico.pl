@@ -47,6 +47,7 @@ leDijo(aye, maiu, got, relacion(amistad, tyrion, john)).
 leDijo(aye, gaston, got, relacion(amistad, tyrion, dragon)).
 leDijo(nico, juan, futurama, muerte(seymourDiera)).
 leDijo(pedro, aye, got, relacion(amistad, tyrion, dragon)).
+leDijo(pedro,nico,got,relacion(parentesco,tyrion,dragon)).
 /*no agregue lo ultimo porque dice que no es cierto*/
 
 /*serie, temporada, capitulo, palabrasClave*/
@@ -98,27 +99,29 @@ sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(parente
 sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(amorosa,_,_)).
 
 /* ********************************************** 2da PARTE ****************************************************** */
-
+/*
 malaGente(Persona):-leSpoileoATodos(Persona).
 
 leSpoileoATodos(Persona):-findall(Persona,leSpoileo(Persona,_,_),Spoileados).
                           leDijo(Persona,Spoileados).
-/* Estoy casi seguro que se hace con el findall, no entiendo como planear la parte que informa que con todos los que hablo spoileo */
+ Estoy casi seguro que se hace con el findall, no entiendo como planear la parte que informa que con todos los que hablo spoileo */
 
 /* *********************************************************** */
+
 /* PUNTO 1 */
-/*
+
 malaGente(Persona):-
   persona(Persona),
-  forall(leDijo(Persona,_,_,_),leSpoileo(Persona,_,_)).
+  forall(leDijo(Persona,PersonaSpoileada,_,_),leSpoileo(Persona,PersonaSpoileada,_)).
 
 persona(Persona):- serieQueVeOPlaneaVer(Persona,_).
 
 malaGente(Persona):-
-  %persona(Persona),
-  leSpoileo(Persona,_,Serie),
+  queMira(PersonaMala,Serie),
+  %malaGente(PersonaMala),
+  leSpoileo(PersonaMala,Persona,Serie),
   not(queMira(Persona,Serie)).
-*/
+
 /* ******************************************************************* */
 
 /* PUNTO 2 */
