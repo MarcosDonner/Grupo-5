@@ -99,10 +99,15 @@ sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(parente
 sucesoFuerteTemporada(Serie,Temporada):- paso(Serie,Temporada,_,relacion(amorosa,_,_)).
 
 /* ********************************************** 2da PARTE ****************************************************** */
+<<<<<<< Updated upstream
 /*
 malaGente(Persona):-leSpoileoATodos(Persona).
+=======
 
-leSpoileoATodos(Persona):-findall(Persona,leSpoileo(Persona,_,_),Spoileados).
+%malaGente(Persona):-leSpoileoATodos(Persona).
+>>>>>>> Stashed changes
+
+%leSpoileoATodos(Persona):-findall(Persona,leSpoileo(Persona,_,_),Spoileados).
                           leDijo(Persona,Spoileados).
  Estoy casi seguro que se hace con el findall, no entiendo como planear la parte que informa que con todos los que hablo spoileo */
 
@@ -112,14 +117,23 @@ leSpoileoATodos(Persona):-findall(Persona,leSpoileo(Persona,_,_),Spoileados).
 
 malaGente(Persona):-
   persona(Persona),
+<<<<<<< Updated upstream
   forall(leDijo(Persona,PersonaSpoileada,_,_),leSpoileo(Persona,PersonaSpoileada,_)).
+=======
+  forall(leDijo(Persona,OtraPersona,_,_),leSpoileo(Persona,OtraPersona,_)).
+>>>>>>> Stashed changes
 
 persona(Persona):- serieQueVeOPlaneaVer(Persona,_).
 
 malaGente(Persona):-
+<<<<<<< Updated upstream
   queMira(PersonaMala,Serie),
   %malaGente(PersonaMala),
   leSpoileo(PersonaMala,Persona,Serie),
+=======
+  persona(Persona),
+  leSpoileo(Persona,_,Serie),
+>>>>>>> Stashed changes
   not(queMira(Persona,Serie)).
 
 /* ******************************************************************* */
