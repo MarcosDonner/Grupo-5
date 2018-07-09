@@ -117,11 +117,7 @@ malaGente(Persona):-leSpoileoATodos(Persona).
 
 malaGente(Persona):-
   persona(Persona),
-<<<<<<< Updated upstream
   forall(leDijo(Persona,PersonaSpoileada,_,_),leSpoileo(Persona,PersonaSpoileada,_)).
-=======
-  forall(leDijo(Persona,OtraPersona,_,_),leSpoileo(Persona,OtraPersona,_)).
->>>>>>> Stashed changes
 
 persona(Persona):- serieQueVeOPlaneaVer(Persona,_).
 
