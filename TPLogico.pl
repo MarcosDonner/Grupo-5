@@ -105,6 +105,26 @@ leSpoileoATodos(Persona):-findall(Persona,leSpoileo(Persona,_,_),Spoileados).
                           leDijo(Persona,Spoileados).
 /* Estoy casi seguro que se hace con el findall, no entiendo como planear la parte que informa que con todos los que hablo spoileo */
 
+/* *********************************************************** */
+/* PUNTO 1 */
+/*
+malaGente(Persona):-
+  persona(Persona),
+  forall(leDijo(Persona,_,_,_),leSpoileo(Persona,_,_)).
+
+persona(Persona):- serieQueVeOPlaneaVer(Persona,_).
+
+malaGente(Persona):-
+  %persona(Persona),
+  leSpoileo(Persona,_,Serie),
+  not(queMira(Persona,Serie)).
+*/
+/* ******************************************************************* */
+
+/* PUNTO 2 */
+%fuerte()
+
+
 /* ********************************************** TEST ****************************************************** */
 :- begin_tests(punto1).
 test(juanMira_himymFuturamaGot, nondet) :-
@@ -213,3 +233,14 @@ test(nico_zafa_con_StarWars,nondet):-
   vieneZafando(Persona,starWars),
   Persona == nico.
 :- end_tests(punto6).
+
+/* ******************************************** TEST PARTE 2 *******************************************/
+/* PUNTO 1*/
+:- begin_tests(parte2_punto1).
+test(gaston_es_malaGente,nondet):-
+  malaGente(gaston).
+test(nico_es_MalaGente,nondet):-
+  malaGente(nico).
+test(pedro_noesMalaGente,fail):-
+  malaGente(pedro).
+:- end_tests(parte2_punto1).
