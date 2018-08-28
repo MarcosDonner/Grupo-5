@@ -1,10 +1,37 @@
-/* 
-describe "group of tests" {
+import tpObjetos.*
+describe "hechizos de rolando (la mancha)" {
 
-	test "testX" {
+	test "el nivel de hechizeria de rolando es 56" {
+		rolando.agregarHechizo([ espectroMalefico, hechizoBasico ])
+		rolando.poderHechizoPreferido()
+		assert.equals(rolando.nivelHechizeria(), 56)
+	}
 
-		assert.that(true)
+	// si si, me falta cambiar el nombre, pero no se como, tal vez pensandolo de la forma en agregar una variable y que diga espectro..
+	test "cambiar el nombre de espectroMalefico por 'espectro superrecontramalefico muajajaja', 
+			donde el nivel de hechiceria de rolando es 125" {
+		assert.that(true) // falta codear el test
+	}
 
+	test " cambiar el hechizo preferido , donde su nivel de hechiceria sea 35" {
+		rolando.agregarHechizo([hechizoBasico, espectroMalefico ])
+		rolando.poderHechizoPreferido()
+		assert.equals(rolando.nivelHechizeria(), 35)
+	}
+	test "nivel de hechiceria de rolando luego de un eclipse, resultado : 61"{
+		rolando.agregarHechizo([espectroMalefico,hechizoBasico ])
+		rolando.poderHechizoPreferido()
+		rolando.enclipsamiento()
+		assert.equals(rolando.nivelHechizeria(), 61) // me tira error amarillo donde no le pega, en algo le estoy pifeando ..despues
+	
+	}
+	test "espectro malefico es poderoso"{
+		assert.that(espectroMalefico.esPoderoso())
+	}
+	test " cambiando el nombre de espectroMalefico por 'pepe' deja de ser poderoso"{
+		assert.that(true) // falta codear el test
+	}
+	test" hechizo magico no es poderoso"{
+		assert.notThat(hechizoBasico.esPoderoso())
 	}
 }
-*/
