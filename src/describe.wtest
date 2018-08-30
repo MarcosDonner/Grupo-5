@@ -11,7 +11,7 @@ describe "hechizos de rolando (la mancha)" {
 			donde el nivel de hechiceria de rolando es 125" {
 		espectroMalefico.nombreNuevo("espectroSuperRecontraMaleficoMuajajajaja")
 		espectroMalefico.calculoDePoder()
-		rolando.agregaHechizo([ espectroMalefico, hechizoBasico ])
+		rolando.agregarHechizo([ espectroMalefico, hechizoBasico ])
 		rolando.poderHechizoPreferido()
 		assert.equals(rolando.nivelHechizeria(),125) 
 	}
@@ -38,4 +38,5 @@ describe "hechizos de rolando (la mancha)" {
 			}
 	test" hechizo magico no es poderoso"{
 		assert.notThat(hechizoBasico.esPoderoso())
+	}
 }
