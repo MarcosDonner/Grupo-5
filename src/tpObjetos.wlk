@@ -13,7 +13,8 @@ object rolando {
 	method hechiceriaBase(unHechizoBase) { //set
 		hechiceriaBase = unHechizoBase
 	}
-
+	method fuerzaOscura() = fuerzaOscura
+	
 	method hechizo() = hechizoPreferido
 
 	method agregarHechizo(unHechizo) {
@@ -23,14 +24,14 @@ object rolando {
 
 	method poderHechizoPreferido() = hechizoPreferido.first().poder()
 
-	method nivelHechizeria() = (hechiceriaBase * self.poderHechizoPreferido()) + fuerzaOscura
+	method nivelHechizeria() = (hechiceriaBase * self.poderHechizoPreferido()) +  self.fuerzaOscura()
 
 	method poderoso() {
 		self.poderHechizoPreferido().esPoderoso()
 	}
 
 	method enclipsamiento() {
-		return fuerzaOscura * 2
+		fuerzaOscura = fuerzaOscura * 2
 	}
 
 	method agregaArtefactos(unArtefacto) {
@@ -55,12 +56,23 @@ object rolando {
 /* ************************************** PODERES ************************** */
 object espectroMalefico {
 
-	const poder = 17
-	const poderoso = true
+	var nombre = "espectroMalefico"
+	var poder = 17
 
+	// const poderoso  
 	method poder() = poder
 
-	method esPoderoso() = poderoso
+	method calculoDePoder() {
+		poder = self.nombre().size()
+	}
+
+	method esPoderoso() = self.poder() > 15
+
+	method nombre() = nombre
+
+	method nombreNuevo(unNuevoNombre) {
+		nombre = unNuevoNombre
+	}
 
 }
 

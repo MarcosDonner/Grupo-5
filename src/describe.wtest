@@ -7,10 +7,13 @@ describe "hechizos de rolando (la mancha)" {
 		assert.equals(rolando.nivelHechizeria(), 56)
 	}
 
-	// si si, me falta cambiar el nombre, pero no se como, tal vez pensandolo de la forma en agregar una variable y que diga espectro..
 	test "cambiar el nombre de espectroMalefico por 'espectro superrecontramalefico muajajaja', 
 			donde el nivel de hechiceria de rolando es 125" {
-		assert.that(true) // falta codear el test
+		espectroMalefico.nombreNuevo("espectroSuperRecontraMaleficoMuajajajaja")
+		espectroMalefico.calculoDePoder()
+		rolando.agregaHechizo([ espectroMalefico, hechizoBasico ])
+		rolando.poderHechizoPreferido()
+		assert.equals(rolando.nivelHechizeria(),125) 
 	}
 
 	test " cambiar el hechizo preferido , donde su nivel de hechiceria sea 35" {
@@ -29,9 +32,10 @@ describe "hechizos de rolando (la mancha)" {
 		assert.that(espectroMalefico.esPoderoso())
 	}
 	test " cambiando el nombre de espectroMalefico por 'pepe' deja de ser poderoso"{
-		assert.that(true) // falta codear el test
-	}
+		espectroMalefico.nombreNuevo("pepe")
+		espectroMalefico.calculoDePoder()
+		assert.notThat(espectroMalefico.esPoderoso()) 
+			}
 	test" hechizo magico no es poderoso"{
 		assert.notThat(hechizoBasico.esPoderoso())
-	}
 }
