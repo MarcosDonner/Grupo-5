@@ -40,3 +40,4 @@ describe "hechizos de rolando (la mancha)" {
 		assert.notThat(hechizoBasico.esPoderoso())
 	}
 }
+
