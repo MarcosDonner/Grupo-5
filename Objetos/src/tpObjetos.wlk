@@ -5,16 +5,17 @@ object rolando {
 	var hechiceriaBase = 3 // lo puse variable por si luego rolando cambia hechizo, (asi ademas darle un setter jaja)
 	const hechizoPreferido = []
 	var fuerzaOscura = 5
-	const artefactos=[]
+	const artefactos = []
 	var habilidadLucha = 1
 
-	method hechiceriaBase() = hechiceriaBase //get
+	method hechiceriaBase() = hechiceriaBase // get
 
-	method hechiceriaBase(unHechizoBase) { //set
+	method hechiceriaBase(unHechizoBase) { // set
 		hechiceriaBase = unHechizoBase
 	}
+
 	method fuerzaOscura() = fuerzaOscura
-	
+
 	method hechizo() = hechizoPreferido
 
 	method agregarHechizo(unHechizo) {
@@ -24,7 +25,7 @@ object rolando {
 
 	method poderHechizoPreferido() = hechizoPreferido.first().poder()
 
-	method nivelHechizeria() = (hechiceriaBase * self.poderHechizoPreferido()) +  self.fuerzaOscura()
+	method nivelHechizeria() = (hechiceriaBase * self.poderHechizoPreferido()) + self.fuerzaOscura()
 
 	method poderoso() {
 		self.poderHechizoPreferido().esPoderoso()
@@ -39,18 +40,21 @@ object rolando {
 		artefactos.addAll(unArtefacto)
 	}
 
-	method habilidadLucha(unaHabilidad) {
-		habilidadLucha = unaHabilidad
+	method habilidadLucha(unValorBase) { //modifico a gusto el valor base de lucha de rolando
+		habilidadLucha = unValorBase
 	}
 
 	method habilidadLucha() = habilidadLucha
 
-/* 
- * method sumar
- * method habilidadAlLuchar(){
- * 	habilidadLucha + self.artefactos().sum({})
- * }
- */
+// mi idea es que sume los aportes de lucha que tiene cada artefacto y luego sumarlos con la unidad de lucha en method lucha
+// claramente mi idea es que desde los objetos de los artefactos pueda aportar su poder propio, modicandolo, etc .. 
+// no realice ningun test de lucha
+	method obtenerPoderDelArtefacto(){
+		return artefactos.sum({artefacto => artefacto.aporteLucha()})
+	}
+	method lucha(){
+		habilidadLucha += self.obtenerPoderDelArtefacto()
+	}
 }
 
 /* ************************************** PODERES ************************** */
@@ -98,18 +102,29 @@ object espadaDeDesierto {
 
 }
 
-/* 
- * object collarDivino{
- * 	var unidadesPerlas
- * 	var unidadesDeLucha
- * 	method aporteLucha(cantidadPerlas){
- * 		unidadesDeLucha += unidadesDeLucha
- * 	}
- * }
- * object mascaraOscura{
- * 	var unidadFuerzaOscura
- * 	method aporteLucha(fuerzaOscura) = 4.min(unidadFuerzaOscura/2)	
- * }
+object collarDivino {
 
- */
- /* despues lo veo */
+	var unidadesPerlas
+	var unidadesDeLucha
+
+	method poderArtefacto(cantidadPerlas) {
+		unidadesDeLucha += unidadesPerlas
+	}
+
+	method aporteLucha() = unidadesDeLucha
+
+}
+
+object mascaraOscura {
+
+	var unidadFuerzaOscura
+	var unidadesDeLucha
+
+	method poderArtefacto(fuerzaOscura) {
+		unidadesDeLucha = 4.min(fuerzaOscura / 2)
+	}
+
+	method aporteDeLucha() = unidadesDeLucha
+
+}
+
