@@ -1,0 +1,9 @@
+import tpObjetos.*
+describe "lucha y hechiceria avanzada" {
+
+	test "saber si rolando esta cargado, osea si tiene 5 o mas artefactos" {
+
+		assert.that(true)
+
+	}
+}

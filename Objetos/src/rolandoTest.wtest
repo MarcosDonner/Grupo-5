@@ -1,0 +1,45 @@
+import tpObjetos.*
+
+describe "hechizos de rolando (la mancha)" {
+
+	test "el nivel de hechizeria de rolando es 56" {
+		rolando.agregaHechizo([ espectroMalefico, hechizoBasico ])
+		rolando.poderHechizoPreferido()
+		assert.equals(rolando.nivelHechizeria(), 56)
+	}
+
+	
+	test "cambiar el nombre de espectroMalefico por 'espectro superrecontramalefico muajajaja', 
+			donde el nivel de hechiceria de rolando es 125" {
+		espectroMalefico.nombreNuevo("espectroSuperRecontraMaleficoMuajajajaja")
+		espectroMalefico.calculoDePoder()
+		rolando.agregaHechizo([ espectroMalefico, hechizoBasico ])
+		rolando.poderHechizoPreferido()
+		assert.equals(rolando.nivelHechizeria(),125) 
+	}
+
+	test " cambiar el hechizo preferido , donde su nivel de hechiceria sea 35" {
+		rolando.agregaHechizo([hechizoBasico, espectroMalefico ])
+		rolando.poderHechizoPreferido()
+		assert.equals(rolando.nivelHechizeria(), 35)
+	}
+	test "nivel de hechiceria de rolando luego de un eclipse, resultado : 61"{
+		rolando.agregaHechizo([espectroMalefico,hechizoBasico ])
+		rolando.poderHechizoPreferido()
+		mundo.eclipse()
+		assert.equals(rolando.nivelHechizeria(), 61) 
+	
+	}
+	test "espectro malefico es poderoso"{
+		assert.that(espectroMalefico.esPoderoso())
+	}
+	test " cambiando el nombre de espectroMalefico por 'pepe' deja de ser poderoso"{
+		espectroMalefico.nombreNuevo("pepe")
+		espectroMalefico.calculoDePoder()
+		assert.notThat(espectroMalefico.esPoderoso()) 
+			}
+	test" hechizo magico no es poderoso"{
+		assert.notThat(hechizoBasico.esPoderoso())
+	}
+	/* pasara algo? */
+}
