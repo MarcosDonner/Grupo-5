@@ -1,9 +1,53 @@
-import tpObjetos.*
+import example.*
+import artefactos.*
+import hechizos.*
+
 describe "lucha y hechiceria avanzada" {
 
 	test "saber si rolando esta cargado, osea si tiene 5 o mas artefactos" {
-
-		assert.that(true)
-
+		rolando.agregaArtefactos([espadaDeDesierto,collarDivino,mascaraOscura,armadura,espejoFantastico])
+		assert.that(rolando.estaCargado())
 	}
+	test "hacer que rolando se saque la armadura y saber si rolando esta cargado. No lo esta!"{
+		rolando.agregaArtefactos([espadaDeDesierto,collarDivino,mascaraOscura,armadura,espejoFantastico])
+		rolando.eliminarArtefacto(armadura)
+		assert.notThat(rolando.estaCargado())
+	}
+	
+	test "conocer la habilidad de lucha de rolando. Tiene 20"{
+		collarDivino.cantidadDePerlas(5)
+		mascaraOscura.poderArtefacto(mundo.fuerzaOscura())
+		rolando.agregaArtefactos([espadaDeDesierto,collarDivino,mascaraOscura,armadura,espejoFantastico])
+		rolando.obtenerPoderDeLosArtefactos()
+		rolando.lucha()
+		assert.equals(rolando.habilidadLucha(),20)
+	}
+	test "habilidad de la armadura de rolando, si la armadura tiene una BENDICION como refuerzo, debe dar 58"{
+		rolando.agregaHechizo([espectroMalefico])
+		rolando.poderHechizoPreferido()
+		bendicion.aporteLucha(rolando)
+		armadura.obtencionRefuerzo(bendicion)
+		assert.equals(armadura.aporteLucha(rolando),58)
+	}
+	//me cambio nivel de hechiceria
+	test "habilidad de lucha de la armadura, si tiene COTA DE MALLA como refuerzo , debe dar 3 " {
+		cotaDeMalla.aporteLucha(rolando)
+		armadura.obtencionRefuerzo(bendicion)
+		assert.equals(armadura.aporteLucha(rolando),3)
+	} 
+	//hay que optimizar hechiceria acorde a los aporte de lucha y no diferenciar del "calculoDePoder()"
+	test "hablidad de lucha de la armadura, si tiene el hechizo espectro malefico como refuerzo, debe dar 19 " {
+		hechizo.choiseWizards(espectroMalefico)
+		hechizo.aporteLucha(rolando)
+		armadura.obtencionRefuerzo(espectroMalefico)
+		assert.equals(armadura.aporteLucha(rolando),19)
+	}
+	test " eliminar todos los artefactos de rolando e incorporar solo al espejo, obtener la habilidad de lucha, debe ser 1 del valor base"{
+		rolando.agregaArtefactos([espejoFantastico])
+		assert.equals(rolando.habilidadLucha(),1)
+	}
+	test " Reemplazar al hechizo preferido por un libro de hechizos que contenga el espectro maléfico (con nombre “espectro maléfico”) 
+y al hechizo básico. Saber cuál es el nivel de hechicería de Rolando."{
+	assert.that(true)
+}
 }
