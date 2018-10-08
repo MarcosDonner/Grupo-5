@@ -1,7 +1,14 @@
-import example.*
+import Personaje.*
 import hechizos.*
 import artefactos.*
+
 describe "hechizos de rolando (la mancha)" {
+		const rolando
+		const espectroMalefico
+	fixture{
+		rolando = new Personaje()
+		espectroMalefico = new HechizoLogos()
+	}
 
 	test "el nivel de hechizeria de rolando es 56" {
 		rolando.agregaHechizo([ espectroMalefico  ])
@@ -43,5 +50,5 @@ describe "hechizos de rolando (la mancha)" {
 	test" hechizo magico no es poderoso"{
 		assert.notThat(hechizoBasico.esPoderoso())
 	}
-	/* pasara algo? */
+
 }

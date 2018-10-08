@@ -1,6 +1,6 @@
-import example.*
+import Personaje.*
 
-object espectroMalefico {
+class HechizoLogos {
 
 	var nombre = "espectroMalefico"
 	var poder = 17
@@ -44,4 +44,3 @@ object hechizo{
 	method aporteLucha(duenio) = hechizo.poder()
 
 }
-

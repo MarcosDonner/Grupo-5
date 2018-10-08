@@ -1,6 +1,6 @@
-import example.*
-object espadaDeDesierto {
-
+import Personaje.*
+class Armas {
+//
 //	var unidadesDeLucha = 0
 
 	method aporteLucha(duenio) {
@@ -24,8 +24,9 @@ object collarDivino {
 	
 
 }
-
-object mascaraOscura {
+//arreglar este tema por que cambia condiciones de la mascarasOscuras
+// donde cornoque meto el cambio de valorDeLucha?
+class MascarasOscuras {
 
 	var unidadFuerzaOscura
 	var unidadesDeLucha = 0
@@ -41,7 +42,7 @@ object mascaraOscura {
 	method aporteLucha(duenio) = unidadesDeLucha
 
 }
-object armadura{
+class Armadura{
 	var property refuerzo = sinRefuerzo
 	var property aporteLucha = 2
 	method obtencionRefuerzo(unRefuerzo){

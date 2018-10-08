@@ -8,7 +8,7 @@ object mundo{
 	}
 	method fuerzaOscura() = fuerzaOscura
 }
-object rolando {
+class Personaje {
 
 	const nombre = "Rolando"
 	var hechiceriaBase = 3 // lo puse variable por si luego rolando cambia hechizo, (asi ademas darle un setter jaja)
@@ -97,5 +97,4 @@ object rolando {
 	}
 	
 }
-
 

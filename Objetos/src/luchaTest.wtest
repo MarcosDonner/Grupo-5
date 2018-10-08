@@ -1,8 +1,14 @@
-import example.*
+import Personaje.*
 import hechizos.*
 import artefactos.*
 describe "Lucha" {
-
+		const rolando
+		const espadaDeDesierto
+		//arreglar el tema de la mascara oscura con el tema de poder cuando hay eclipse ..donde ponerlo?!
+		fixture{
+			rolando = new Personaje()
+			espadaDeDesierto = new Armas()
+		}
 	test "eliminar todos los artefactos de rolando, conociendo asi su habilidad de lucha que debe ser 1" {
 		rolando.limpiaArtefactos()
 		assert.equals(rolando.habilidadLucha(), 1)
@@ -61,8 +67,13 @@ describe "Lucha" {
 		rolando.lucha()
 		assert.equals(rolando.habilidadLucha(),9)
 	}
+	// nuevos test
+	test "tiene una mascara , con un indice de oscuridad de 0. Preguntar valor lucha de la mascara oscura de rolando. Debe ser 4"{
+		assert.that(true)
+	}
 
 }
+
 
 
 
