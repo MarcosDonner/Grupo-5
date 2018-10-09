@@ -4,10 +4,12 @@ import artefactos.*
 describe "Lucha" {
 		const rolando
 		const espadaDeDesierto
+		const mascaraOscura
 		//arreglar el tema de la mascara oscura con el tema de poder cuando hay eclipse ..donde ponerlo?!
 		fixture{
 			rolando = new Personaje()
 			espadaDeDesierto = new Armas()
+			mascaraOscura = new Mascaras()
 		}
 	test "eliminar todos los artefactos de rolando, conociendo asi su habilidad de lucha que debe ser 1" {
 		rolando.limpiaArtefactos()
@@ -18,7 +20,8 @@ describe "Lucha" {
 		collarDivino.cantidadDePerlas(5)
 		collarDivino.aporteLucha(rolando)
 		espadaDeDesierto.aporteLucha(rolando)
-		mascaraOscura.poderArtefacto(mundo.fuerzaOscura())
+		mascaraOscura.indiceOscuridad(1)
+		mascaraOscura.poderArtefacto()
 		mascaraOscura.aporteLucha(rolando) // mmmm 
 		rolando.agregaArtefactos([ espadaDeDesierto, collarDivino, mascaraOscura ])
 		rolando.obtenerPoderDeLosArtefactos()
@@ -30,8 +33,8 @@ describe "Lucha" {
 		collarDivino.cantidadDePerlas(3)
 		collarDivino.aporteLucha(rolando)
 		espadaDeDesierto.aporteLucha(rolando)
-
-		mascaraOscura.poderArtefacto(mundo.fuerzaOscura())
+		mascaraOscura.indiceOscuridad(1)
+		mascaraOscura.poderArtefacto()
 		mascaraOscura.aporteLucha(rolando) // mmmm 
 		rolando.agregaArtefactos([ espadaDeDesierto, collarDivino, mascaraOscura ])
 		rolando.obtenerPoderDeLosArtefactos()
@@ -44,7 +47,8 @@ describe "Lucha" {
 		collarDivino.cantidadDePerlas(5)
 		collarDivino.aporteLucha(rolando)
 		espadaDeDesierto.aporteLucha(rolando)
-		mascaraOscura.poderArtefacto(mundo.fuerzaOscura())
+		mascaraOscura.indiceOscuridad(1)
+		mascaraOscura.poderArtefacto()
 		mascaraOscura.aporteLucha(rolando) // mmmm 
 		rolando.habilidadLucha(8)
 		rolando.agregaArtefactos([ espadaDeDesierto, collarDivino, mascaraOscura ])
@@ -55,13 +59,15 @@ describe "Lucha" {
 	test "ocurre un eclipse afectando a rolando en si, el valor de lucha de la mascaraOscura" {
 		mundo.eclipse()
 		mundo.fuerzaOscura()
-		mascaraOscura.poderArtefacto(mundo.fuerzaOscura())
+		mascaraOscura.indiceOscuridad(1)
+		mascaraOscura.poderArtefacto()
 		assert.equals(mascaraOscura.aporteLucha(rolando),5)
 	}
 	test "eliminar mascaraOscura de la lista de artefactos de rolando, obteniendo su habiliad de lucha , que es 9" {
 		
 		collarDivino.cantidadDePerlas(5)
-		mascaraOscura.poderArtefacto(mundo.fuerzaOscura())
+		mascaraOscura.indiceOscuridad(1)
+		mascaraOscura.poderArtefacto()
 		rolando.agregaArtefactos([ espadaDeDesierto, collarDivino, mascaraOscura ])
 		rolando.eliminarArtefacto(mascaraOscura)
 		rolando.lucha()
