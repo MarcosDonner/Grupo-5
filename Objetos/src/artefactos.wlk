@@ -30,6 +30,7 @@ class MascarasOscuras {
 
 	var unidadFuerzaOscura
 	var unidadesDeLucha = 0
+	var nivelDeOscuridad = 4
 
 	method poderArtefacto(fuerzaOscura) {
 		if(mundo.fuerzaOscura()<= 5)
@@ -38,6 +39,9 @@ class MascarasOscuras {
 			unidadesDeLucha = 5
 		}
 	}
+    method cambiarNivelDeOscuridad(nuevoValorDeOscuridad) {
+    	nivelDeOscuridad = nuevoValorDeOscuridad
+    }
 
 	method aporteLucha(duenio) = unidadesDeLucha
 
