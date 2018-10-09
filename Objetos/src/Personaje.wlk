@@ -9,15 +9,14 @@ object mundo{
 	method fuerzaOscura() = fuerzaOscura
 }
 class Personaje {
-    
-    var oro = 100
+
 	const nombre = "Rolando"
-	var hechiceriaBase = 3 // lo puse variable por si luego rolando cambia hechizo, (asi ademas darle un setter jaja)
+	var hechiceriaBase = 3 
 	const libroDeHechizos = []
 
 	var property habilidadLucha = 1
 	var property artefactos = []
-	var  puntosDeLuchaDelMejorArtefacto = 0
+	var puntosDeLuchaDelMejorArtefacto = 0
 	var armadura
 
 	method hechiceriaBase() = hechiceriaBase // get
@@ -96,6 +95,6 @@ class Personaje {
 	method tieneSoloEspejo(){
 		return artefactos == [espejoFantastico]
 	}
-	method comprarHechizoBasico()
+	
 }
 

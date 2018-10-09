@@ -25,24 +25,26 @@ object collarDivino {
 
 }
 
-class MascarasOscuras {
+class Mascaras{
 
-	var unidadFuerzaOscura
-	var unidadesDeLucha = 0
-	var nivelDeOscuridad = 4
-
-	method poderArtefacto(fuerzaOscura) {
+	var property indiceOscuridad 
+	var unidadesDeLuchaMinimo = 4
+	var valorLucha
+	method poderArtefacto() {
 		if(mundo.fuerzaOscura()<= 5)
-		unidadesDeLucha = 4.max(fuerzaOscura / 2)
+		valorLucha = unidadesDeLuchaMinimo.max(mundo.fuerzaOscura() / 2) * self.indiceOscuridad()
 		else{
-			unidadesDeLucha = 5
+			valorLucha = 5
 		}
 	}
-    method cambiarNivelDeOscuridad(nuevoValorDeOscuridad) {
-    	nivelDeOscuridad = nuevoValorDeOscuridad
-    }
+	method modificarIndice(unIndice) {
+		indiceOscuridad = unIndice
+	}
+	method modificarUnidadLuchaMinimo(nuevaUnidad){
+		unidadesDeLuchaMinimo = nuevaUnidad
+	}
 
-	method aporteLucha(duenio) = unidadesDeLucha
+	method aporteLucha(duenio) = valorLucha
 
 }
 class Armadura{
@@ -61,9 +63,12 @@ object sinRefuerzo{
 }
 
 // artefacto del punto 3
-object cotaDeMalla{
-
-	method aporteLucha(duenio) = return 1
+class CotaDeMalla{
+	var property cantidad
+	method cantidadAporte(unaCantidad){
+		cantidad = unaCantidad
+	}
+	method aporteLucha(duenio) = return cantidad
 }
 
 
@@ -96,4 +101,4 @@ class Mercado {
 	}
 
 */
-	*/
+	

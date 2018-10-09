@@ -1,8 +1,22 @@
-import example.*
+import Personaje.*
 import artefactos.*
 import hechizos.*
 
 describe "lucha y hechiceria avanzada" {
+	const rolando
+	const espadaDeDesierto
+	const mascaraOscura
+	const armadura
+	const espectroMalefico
+	const cotaDeMalla
+	fixture{
+		 rolando = new Personaje()
+		 espadaDeDesierto = new Armas()
+		 mascaraOscura = new Mascaras()
+		 armadura = new Armadura()
+		 espectroMalefico = new HechizoLogos()
+		 cotaDeMalla = new CotaDeMalla()
+	}
 
 	test "saber si rolando esta cargado, osea si tiene 5 o mas artefactos" {
 		rolando.agregaArtefactos([espadaDeDesierto,collarDivino,mascaraOscura,armadura,espejoFantastico])
@@ -16,7 +30,8 @@ describe "lucha y hechiceria avanzada" {
 	
 	test "conocer la habilidad de lucha de rolando. Tiene 20"{
 		collarDivino.cantidadDePerlas(5)
-		mascaraOscura.poderArtefacto(mundo.fuerzaOscura())
+		mascaraOscura.indiceOscuridad(1)
+		mascaraOscura.poderArtefacto()
 		rolando.agregaArtefactos([espadaDeDesierto,collarDivino,mascaraOscura,armadura,espejoFantastico])
 		rolando.obtenerPoderDeLosArtefactos()
 		rolando.lucha()
