@@ -24,28 +24,25 @@ object collarDivino {
 	
 
 }
-//arreglar este tema por que cambia condiciones de la mascarasOscuras
-// donde cornoque meto el cambio de valorDeLucha?
-class Mascaras{
 
-	var property indiceOscuridad 
-	var unidadesDeLuchaMinimo = 4
-	var valorLucha
-	method poderArtefacto() {
+class MascarasOscuras {
+
+	var unidadFuerzaOscura
+	var unidadesDeLucha = 0
+	var nivelDeOscuridad = 4
+
+	method poderArtefacto(fuerzaOscura) {
 		if(mundo.fuerzaOscura()<= 5)
-		valorLucha = unidadesDeLuchaMinimo.max(mundo.fuerzaOscura() / 2) * self.indiceOscuridad()
+		unidadesDeLucha = 4.max(fuerzaOscura / 2)
 		else{
-			valorLucha = 5
+			unidadesDeLucha = 5
 		}
 	}
-	method modificarIndice(unIndice) {
-		indiceOscuridad = unIndice
-	}
-	method modificarUnidadLuchaMinimo(nuevaUnidad){
-		unidadesDeLuchaMinimo = nuevaUnidad
-	}
+    method cambiarNivelDeOscuridad(nuevoValorDeOscuridad) {
+    	nivelDeOscuridad = nuevoValorDeOscuridad
+    }
 
-	method aporteLucha(duenio) = valorLucha
+	method aporteLucha(duenio) = unidadesDeLucha
 
 }
 class Armadura{
@@ -69,9 +66,7 @@ object cotaDeMalla{
 	method aporteLucha(duenio) = return 1
 }
 
-// sieneto que aporte de lucha tengo que agregarle como parametro duenio, en el cual ese duenio me dara su nivel de hechiceria
-// ya que no sera solo rolando, podria ser cualquiera , lo dejo pero tal vez se deba cambiar
-//28/09 edit: como la bendicion dependia de cada personaje, le paso como parametro al DUENIO y que este llame a su nivel de hechiceria
+
 object bendicion{
 	var unidadDeLucha
 
@@ -86,3 +81,19 @@ object espejoFantastico{
 		}
 	}
 }
+
+/* Posible mercado que no pude ponerlo en una clase Mercado gracias a Wollok :)
+class Mercado {
+	var costoHechizosBasicos = 10
+	var costoHechizosLogos = poder(hechizo)
+	var costoEspadasYSimilares = 5*unidadesDeLucha(unArma)
+	var costoCollarDivino = 2*cantidadPerlas
+	var costoArmaduraConCota = unidadDeLucha/2
+	var costoArmaduraConBendicion = valorBaseDeArmadura
+	var costoArmaduraConHechizo = valorBaseDeLaArmadura
+	var costoArmaduraSinRefuerzo = 2
+	var costoEspejoFantastico = 90
+	}
+
+*/
+	*/
