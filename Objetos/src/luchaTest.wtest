@@ -75,11 +75,18 @@ describe "Lucha" {
 	}
 	// nuevos test
 	test "tiene una mascara , con un indice de oscuridad de 0. Preguntar valor lucha de la mascara oscura de rolando. Debe ser 4"{
-		assert.that(true)
+		mascaraOscura.indiceOscuridad(0)
+		mascaraOscura.poderArtefacto()
+		assert.equals(mascaraOscura.aporteLucha(rolando),4)
+	}
+	test" Tener una máscara oscura con índice de oscuridad de 0, y valor mínimo en 2. Preguntar por el valor de lucha de la máscara oscura de Rolando. Debe ser 2"{
+		mascaraOscura.indiceOscuridad(0)
+		mascaraOscura.modificarUnidadLuchaMinimo(2)
+		mascaraOscura.poderArtefacto()
+		assert.equals(mascaraOscura.aporteLucha(rolando),2)
 	}
 
 }
-
 
 
 

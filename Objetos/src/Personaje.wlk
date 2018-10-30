@@ -11,31 +11,31 @@ object mundo{
 class Personaje {
 
 	const nombre = "Rolando"
-	var hechiceriaBase = 3 
-	const libroDeHechizos = []
+	var hechiceriaBase = 3 // lo puse variable por si luego rolando cambia hechizo, (asi ademas darle un setter jaja)
+	var property hechizoPreferido
 
 	var property habilidadLucha = 1
 	var property artefactos = []
-	var puntosDeLuchaDelMejorArtefacto = 0
+	var  puntosDeLuchaDelMejorArtefacto = 0
 	var armadura
-
+	
+	var property monedas = 100
+	var hechizoCanjeado
+	var reconocerMitadPrecioHechizo
+	
 	method hechiceriaBase() = hechiceriaBase // get
 
 	method hechiceriaBase(unHechizoBase) { // set
 		hechiceriaBase = unHechizoBase
 	}
 
-	method hechizo() = libroDeHechizos
+	method hechizo() = hechizoPreferido
 
-	method agregaHechizo(unHechizo) {
-	
-		libroDeHechizos.addAll(unHechizo)
-	}
-	method limpiarHechizo(){
-		libroDeHechizos.clear()
+	method cambiarHechizoPreferido(unHechizo){
+		hechizoPreferido = unHechizo
 	}
 
-	method poderHechizoPreferido() = libroDeHechizos.sum({hechizos => hechizos.poder()})
+	method poderHechizoPreferido() = self.hechizoPreferido().poder()
 
 
 	method nivelHechizeria() = (hechiceriaBase * self.poderHechizoPreferido()) + mundo.fuerzaOscura()
@@ -82,9 +82,11 @@ class Personaje {
 	method eliminarArtefacto(unArtefacto){
 		artefactos.remove(unArtefacto)
 	}
+
 	method puntosDeLuchaDelMejorArtefacto(){
 		return self.mejorArtefacto().aporteLucha(self) // devuelve un valor de APORTE DE LUCHA, que luego sera sumado junto con self.obtenerPoderDeLosArtefactos()
 	}
+	
 	method mejorArtefacto(){
 		return self.artefactosSinEspejo().max({artefacto => artefacto.aporteLucha(self)})
 	}
@@ -96,5 +98,28 @@ class Personaje {
 		return artefactos == [espejoFantastico]
 	}
 	
+	//
+	method canjearHechizoPorProducto(unProducto){
+		reconocerMitadPrecioHechizo = hechizoCanjeado.precioDeLista() / 2  // veremos como se lo cambia . Edit: y que sucede con esto?
+		if(self.loPuedoComprar(unProducto)){
+			self.cambiarHechizoPreferido(unProducto) // se vuelve el preferido al canjear hechizo
+			self.restarMonedero(reconocerMitadPrecioHechizo)
+		}
+	}
+	
+	method canjearArtefactos(unProducto){
+		if(self.loPuedoComprar(unProducto)){
+			self.agregaArtefactos(unProducto)
+			 self.restarMonedero(unProducto.precioDeLista())
+		}
+	}
+	method loPuedoComprar(unProducto){
+		return unProducto.precioDeLista(self)<= self.monedas()
+	}
+	method restarMonedero(unaCantidad){
+		return self.monedas((self.monedas() - unaCantidad).max(0)) // no comments sobre los issues  jajajaa
+	}
+	
 }
+
 

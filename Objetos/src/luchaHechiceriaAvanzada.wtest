@@ -9,6 +9,7 @@ describe "lucha y hechiceria avanzada" {
 	const armadura
 	const espectroMalefico
 	const cotaDeMalla
+	const libroHechizos
 	fixture{
 		 rolando = new Personaje()
 		 espadaDeDesierto = new Armas()
@@ -16,6 +17,7 @@ describe "lucha y hechiceria avanzada" {
 		 armadura = new Armadura()
 		 espectroMalefico = new HechizoLogos()
 		 cotaDeMalla = new CotaDeMalla()
+		 libroHechizos = new LibroHechizos()
 	}
 
 	test "saber si rolando esta cargado, osea si tiene 5 o mas artefactos" {
@@ -38,7 +40,7 @@ describe "lucha y hechiceria avanzada" {
 		assert.equals(rolando.habilidadLucha(),20)
 	}
 	test "habilidad de la armadura de rolando, si la armadura tiene una BENDICION como refuerzo, debe dar 58"{
-		rolando.agregaHechizo([espectroMalefico])
+		rolando.hechizoPreferido(espectroMalefico)
 		rolando.poderHechizoPreferido()
 		bendicion.aporteLucha(rolando)
 		armadura.obtencionRefuerzo(bendicion)
@@ -63,6 +65,10 @@ describe "lucha y hechiceria avanzada" {
 	}
 	test " Reemplazar al hechizo preferido por un libro de hechizos que contenga el espectro maléfico (con nombre “espectro maléfico”) 
 y al hechizo básico. Saber cuál es el nivel de hechicería de Rolando."{
-	assert.that(true)
+	libroHechizos.agregaHechizo(espectroMalefico)
+	rolando.hechizoPreferido(libroHechizos)
+	rolando.poderHechizoPreferido()
+
+	assert.equals(rolando.nivelHechizeria(),56)
 }
 }

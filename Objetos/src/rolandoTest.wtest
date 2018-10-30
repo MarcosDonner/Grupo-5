@@ -11,7 +11,7 @@ describe "hechizos de rolando (la mancha)" {
 	}
 
 	test "el nivel de hechizeria de rolando es 56" {
-		rolando.agregaHechizo([ espectroMalefico  ])
+		rolando.hechizoPreferido( espectroMalefico  )
 		rolando.poderHechizoPreferido()
 		assert.equals(rolando.nivelHechizeria(), 56)
 	}
@@ -21,19 +21,19 @@ describe "hechizos de rolando (la mancha)" {
 			donde el nivel de hechiceria de rolando es 125" {
 		espectroMalefico.nombreNuevo("espectroSuperRecontraMaleficoMuajajajaja")
 		espectroMalefico.calculoDePoder()
-		rolando.limpiarHechizo()
-		rolando.agregaHechizo([ espectroMalefico])
+		//rolando.limpiarHechizo()
+		rolando.cambiarHechizoPreferido( espectroMalefico)
 		rolando.poderHechizoPreferido()
 		assert.equals(rolando.nivelHechizeria(),125) 
 	}
 
 	test " cambiar el hechizo preferido , donde su nivel de hechiceria sea 35" {
-		rolando.agregaHechizo([ hechizoBasico ])
+		rolando.cambiarHechizoPreferido(hechizoBasico )
 		rolando.poderHechizoPreferido()
 		assert.equals(rolando.nivelHechizeria(), 35)
 	}
 	test "nivel de hechiceria de rolando luego de un eclipse, resultado : 61"{
-		rolando.agregaHechizo([espectroMalefico])
+		rolando.hechizoPreferido(espectroMalefico)
 		rolando.poderHechizoPreferido()
 		mundo.eclipse()
 		assert.equals(rolando.nivelHechizeria(), 61) 
