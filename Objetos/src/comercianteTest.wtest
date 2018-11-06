@@ -1,0 +1,94 @@
+import Personaje.*
+import artefactos.*
+import hechizos.*
+
+describe "Comercio punto 4"{
+	const xena
+	const thor
+	const loki
+	var alacachulaCachicomula 
+	fixture{
+		alacachulaCachicomula = new HechizoLogos(
+										nombre = "alacachulaCachicomula"
+										)
+		xena = new Personaje()
+		xena.hechizoPreferido(alacachulaCachicomula)
+					
+		loki = new Personaje()
+		loki.monedas(5)
+		loki.hechizoPreferido(hechizoBasico)
+		
+		thor = new Personaje()
+		thor.hehizoPreferido(hechizoBasico)
+	}
+
+	test "precio de lista del hechizo de logo alaca......., es 22" {
+			
+		assert.equals(alacachulaCachicomula.poder(),22)
+
+		}
+		//hay algo raro en este test
+	test " xena canjea el hechizo por un hechizo basico , cuantas monedas le quedan , deben ser las mismas monedas, 100"{
+		xena.canjearHechizoPorProducto(hechizoBasico)
+		assert.equals(xena.monedas(),100)
+		
+	}	
+	test "thor canjea hechizo por el hechizoDeLogos 'alacachulaxxxx', monedas de thor. Deben ser 83"{
+		thor.canjearHechizoPorProducto(alacachulaCachicomula)
+		assert.equals(thor.monedas(),6)
+	}
+	test "thor canjea 2 veces el hechizo basico. debe dar 90"{
+		thor.canjearHechizoPorProducto(hechizoBasico)
+		thor.canjearHechizoPorProducto(hechizoBasico)
+		assert.equals(thor.monedas(),90)
+	}
+	test"loki comienza con 5 monedas , quiere canjear hechizo por alacaxxxx puede?. no, no puede "{ // throw exception
+		// loki.canjearHechizoPorProducto(alacachulaCachicomula)
+		assert.equals(loki.canjearHechizoPorProducto(alacachulaCachicomula), false)
+	}
+	test " xena compra espada, collar divino(de 5 perlas), armadura sin refuerzo, y otra armadura con cota de malla cuyo valor de lucha es 5. cuantos artefactos tiene xena. 4 "{
+		var espada = new Armas()
+		var armaduraSinRefuerzo = new Armadura()
+		var armaduraConRefuerzo = new Armadura()
+		armaduraConRefuerzo.refuerzo(new CotaDeMalla(cantidad = 5))
+		collarDivino.cantidadDePerlas(5)
+		xena.canjearArtefactos(espada)
+		xena.canjearArtefactos(collarDivino)
+		xena.canjearArtefactos(armaduraSinRefuerzo)
+		xena.canjearArtefactos(armaduraConRefuerzo)
+		assert.equals(xena.monedas(),70.5)
+	}
+	test "xena compra espada, collar divino(de 5 perlas), armadura sin refuerzo, y otra armadura con cota de malla cuyo valor de lucha es 5. Cantidad de artefactos. 4 "{
+		var espada = new Armas()
+		var armaduraSinRefuerzo = new Armadura()
+		var armaduraConRefuerzo = new Armadura()
+		armaduraConRefuerzo.refuerzo(new CotaDeMalla(cantidad = 5))
+		collarDivino.cantidadDePerlas(5)
+		xena.canjearArtefactos(espada)
+		xena.canjearArtefactos(collarDivino)
+		xena.canjearArtefactos(armaduraSinRefuerzo)
+		xena.canjearArtefactos(armaduraConRefuerzo)
+		assert.equals(xena.artefactos().size(),4)
+	}
+	test " thor compra armadura con bendicion como refuerzo, armadura reforzada con hechizo alacaxxx, monedas de Thor.debe dar 74" {
+		var armaduraConBendicion = new Armadura()
+		var armaduraConHechizo = new Armadura()
+		armaduraConBendicion.refuerzo(bendicion)
+		armaduraConHechizo.refuerzo(alacachulaCachicomula)
+		thor.canjearArtefactos(armaduraConBendicion)
+		thor.canjearArtefactos(armaduraConHechizo)
+		thor.canjearArtefacto(thor.monedas(),74)
+	}
+	test "loki quiere comprar espejo. no puede por que es pobre. ya que tiene 56 de monedas y cuesta 90 "{
+		//loki.compra(espejo)
+		assert.that(true)
+	}
+	test" xena canjea libro hechizos, que tenia hechizo de logo de nombre = alacachula cachicomula y hechizo basico. monedas de xena . 69"{
+		var unLibroDeHechizos = new LibroHechizos()
+		unLibroDeHechizos.agregaHechizo(alacachulaCachicomula)
+		unLibroDeHechizos.agregaHechizo(hechizoBasico)
+		xena.canjearArtefactos(unLibroDeHechizos)
+		assert.equals(xena.monedas(),69)
+	}
+}
+
