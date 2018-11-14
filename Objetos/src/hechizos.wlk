@@ -2,7 +2,7 @@ import Personaje.*
 
 class HechizoLogos {
 
-	var nombre = "espectroMalefico"
+	var property nombre = "espectroMalefico"
 	//he aqui, arreglar el poder que desde ese metoido se le calcule 
 	var poder = 17
 
@@ -23,6 +23,7 @@ class HechizoLogos {
 	
 	//
 	method precioDeLista(duenio) = self.poder() // repite, pero para que se entienda que habla para la venta
+	method peso() = 0
 
 }
 
@@ -38,7 +39,13 @@ object hechizoBasico {
 	
 	//
 	method precioDeLista(duenio) = 10 
-	
+	/*method peso() {
+		if (self.poder() < 10){
+			
+		}
+	}
+	 
+	*/ 
 }
 
 // hechizo del punto 3
@@ -50,7 +57,14 @@ object hechizo{
 	}
 	method hechizo() = hechizo
 	method aporteLucha(duenio) = hechizo.poder()
-
+	method peso(){
+		if(self.hechizo().even()){
+			return 2
+		}
+		else{
+			return 1
+		}
+	}
 }
 
 class LibroHechizos{
@@ -73,5 +87,9 @@ class LibroHechizos{
 	method cantidadHechizos() = self.libroDeHechizos().size()
 	method sumaHechizos() = self.poderHechizos()
 }
-
+//
+class HechizoComercial inherits HechizoLogos{
+	var property multiplicador = 2
+	override method aporteLucha(duenio) = self.poder()* 0.2 * self.multiplicador()
+}
 

@@ -10,7 +10,7 @@ class Armas {
 
 	//
 	method precioDeLista(duenio) = 5* self.aporteLucha(duenio)
-
+	
 }
 
 object collarDivino {
@@ -26,7 +26,7 @@ object collarDivino {
 	}
 	//
 	method precioDeLista(duenio) = self.cantidadPerlas() *2
-	
+	method peso() = 0.5 * self.cantidadPerlas()
 
 }
 //arreglar este tema por que cambia condiciones de la mascarasOscuras
@@ -49,6 +49,7 @@ class Mascaras{
 	}
 
 	method aporteLucha(duenio) = valorLucha
+	
 
 }
 class Armadura{
@@ -63,6 +64,7 @@ class Armadura{
 	}
 	//
 	method precioDeLista(duenio) = refuerzo.precioDelRefuerzo(duenio)
+	method peso() = refuerzo.peso()
 	
 }
 object sinRefuerzo{
@@ -80,6 +82,7 @@ class CotaDeMalla{
 	method aporteLucha(duenio) =  cantidad
 	//
 	method precioDelRefuerzo(duenio) = self.aporteLucha(duenio) / 2 
+	method peso() = 1
 }
 
 // sieneto que aporte de lucha tengo que agregarle como parametro duenio, en el cual ese duenio me dara su nivel de hechiceria
@@ -102,6 +105,7 @@ object espejoFantastico{
 	}
 	//
 	method precioDeLista(duenio) = 90
+	method peso() = 0
 	
 }
 /*
@@ -120,7 +124,7 @@ class Espejo{
 		return duenio.artefactos().filter({artefacto => !(artefacto.equals(espejoFantastico))})
 	}
 } 
-*/	
+*/
 
 /* Posible mercado que no pude ponerlo en una clase Mercado gracias a Wollok :)
 class Mercado {
